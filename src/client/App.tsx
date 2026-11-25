@@ -386,8 +386,6 @@ export const App: React.FC = () => {
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
           <span>由 Cloudflare Workers 与 Cloudflare Pages 提供支持</span>
-          <span>•</span>
-          <span>{__APP_VERSION__}</span>
         </div>
 
       </footer>
