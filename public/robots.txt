@@ -49,4 +49,4 @@ Allow: /
 Disallow: /api/
 
 # Sitemap location
-Sitemap: https://ip.ii2d.com/sitemap.xml
+Sitemap: https://ip.666200.xyz/sitemap.xml
