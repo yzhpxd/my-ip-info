@@ -18,7 +18,7 @@ We take the security of **my-ip-info** seriously. If you discover a vulnerabilit
 ### How to Report Privately
 
 1. Please **DO NOT** open a public issue, pull request, or discussion describing the vulnerability.
-2. Instead, report it via **[GitHub Private Vulnerability Reporting](https://github.com/ii2d/my-ip-info/security/advisories/new)** under the repository's **Security** tab.
+2. Instead, report it via **[GitHub Private Vulnerability Reporting](https://github.com/yzhpxd/my-ip-info/security/advisories/new)** under the repository's **Security** tab.
 3. Include the following details in your report:
    - Type of issue (e.g., SSRF, XSS, token leakage, ReDoS, dependency vulnerability).
    - Component affected (Cloudflare Worker, Web Dashboard, Core package, or Infrastructure scripts).
