@@ -52,9 +52,9 @@ jobs:
         env:
           GITHUB_PAGES: 'true'
           VITE_BASE_PATH: ${{ vars.VITE_BASE_PATH || '/' }}
-          VITE_BACKEND_URL: ${{ inputs.backend_url || vars.VITE_BACKEND_URL || vars.BACKEND_URL || 'https://my-ip-info.ii2d-dev.workers.dev' }}
+          VITE_BACKEND_URL: ${{ inputs.backend_url || vars.VITE_BACKEND_URL || vars.BACKEND_URL || 'https://ip.666200.xyz' }}
           VITE_ENABLE_IP2LOCATION: ${{ vars.ENABLE_IP2LOCATION || 'true' }}
-          FRONTEND_DOMAIN: ${{ inputs.frontend_domain || vars.FRONTEND_DOMAIN || vars.CUSTOM_DOMAIN || 'ip.ii2d.com' }}
+          FRONTEND_DOMAIN: ${{ inputs.frontend_domain || vars.FRONTEND_DOMAIN || vars.CUSTOM_DOMAIN || 'ip.666200.xyz' }}
         run: |
           pnpm run build:pages
           cp dist/client/index.html dist/client/404.html
@@ -77,6 +77,6 @@ jobs:
       - name: Notify Search Engines via IndexNow
         continue-on-error: true
         env:
-          INDEXNOW_HOST: ${{ inputs.frontend_domain || vars.FRONTEND_DOMAIN || vars.CUSTOM_DOMAIN || 'ip.ii2d.com' }}
+          INDEXNOW_HOST: ${{ inputs.frontend_domain || vars.FRONTEND_DOMAIN || vars.CUSTOM_DOMAIN || 'ip.666200.xyz' }}
         run: |
           pnpm run indexnow --continue-on-error
