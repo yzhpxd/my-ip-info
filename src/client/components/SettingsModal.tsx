@@ -417,7 +417,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     id="endpoint-url-input"
                     className="form-input"
                     type="url"
-                    placeholder="https://my-ip.example.com/api/v1/info"
+                    placeholder="https://ip.666200.xyz/api/v1/info"
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
                   />
@@ -570,7 +570,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     id="cloudflare-worker-url"
                     className="form-input"
                     type="url"
-                    placeholder="https://my-ip-info.your-subdomain.workers.dev"
+                    placeholder="https://my-ip.cn0514.workers.dev"
                     value={cloudflareUrl}
                     onChange={(e) => setCloudflareUrl(e.target.value)}
                   />
