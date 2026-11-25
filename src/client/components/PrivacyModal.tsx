@@ -224,7 +224,7 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) =
                   margin: 0,
                 }}
               >
-                客户端应用、Cloudflare Workers 后端与 Node.js 运行时的全部源代码均已在 GitHub 上以 MIT 许可证公开，可供审计。
+                客户端应用、Cloudflare Workers 后端与 Node.js 运行时的全部源代码均已以 MIT 许可证公开，可供审计。
               </p>
             </div>
           </div>
