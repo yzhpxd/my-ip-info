@@ -13,6 +13,7 @@ import {
 import type React from 'react';
 import { useMemo, useState } from 'react';
 import type { ProviderResult } from '../types';
+import { zhLocation } from '../utils/geoZh';
 import { groupResultsByIp } from '../utils/grouping';
 
 interface ComparisonMatrixProps {
@@ -658,7 +659,7 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                                     color: 'var(--text-primary)',
                                   }}
                                 >
-                                  {[result.geo.city, result.geo.country].filter(Boolean).join(', ')}
+                                  {zhLocation(result.geo.city, result.geo.country, result.geo.countryCode)}
                                 </span>
                                 {result.geo.asOrganization && (
                                   <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
@@ -812,7 +813,7 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                         <div>{getLatencyBadge(result.latencyMs)}</div>
                         {result.geo ? (
                           <span>
-                            {[result.geo.city, result.geo.country].filter(Boolean).join(', ')}
+                            {zhLocation(result.geo.city, result.geo.country, result.geo.countryCode)}
                           </span>
                         ) : (
                           <span>仅 IP</span>
