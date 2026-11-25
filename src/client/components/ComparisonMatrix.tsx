@@ -54,20 +54,20 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
   const getCategoryBadge = (category: ProviderResult['category']) => {
     switch (category) {
       case 'self-hosted':
-        return <span className="badge badge-emerald">⚡ Edge / Serverless</span>;
+        return <span className="badge badge-emerald">⚡ 边缘 / 无服务器</span>;
       case 'custom':
-        return <span className="badge badge-cyan">🔧 Custom API</span>;
+        return <span className="badge badge-cyan">🔧 自定义 API</span>;
       default:
-        return <span className="badge badge-amber">🌐 Public API</span>;
+        return <span className="badge badge-amber">🌐 公共 API</span>;
     }
   };
 
   const getLatencyBadge = (ms?: number) => {
     if (ms === undefined || ms === 0) return <span style={{ color: 'var(--text-muted)' }}>-</span>;
-    let color = '#34d399'; // green
+    let color = 'var(--text-emerald)'; // green
     if (ms > 100 && ms <= 300)
-      color = '#38bdf8'; // cyan
-    else if (ms > 300) color = '#fbbf24'; // amber
+      color = 'var(--text-cyan)'; // cyan
+    else if (ms > 300) color = 'var(--text-amber)'; // amber
 
     return (
       <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
@@ -107,11 +107,10 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Layers size={18} color="var(--accent-primary)" />
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 700 }}>Multi-Source Cross-Validation</h2>
+            <h2 style={{ fontSize: '1.25rem', fontWeight: 700 }}>多源交叉验证</h2>
           </div>
           <p style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', marginTop: '2px' }}>
-            Real-time consensus verification across edge functions, serverless backends, and public
-            APIs.
+            实时对边缘函数、无服务器后端与公共 API 进行共识验证。
           </p>
         </div>
 
@@ -119,9 +118,9 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
           {/* Status Chips */}
           {results.length > 0 && (
             <div style={{ display: 'flex', gap: '6px' }}>
-              <span className="badge badge-emerald">{totalSuccessful} Verified</span>
+              <span className="badge badge-emerald">{totalSuccessful} 个已验证</span>
               {failedProviders.length > 0 && (
-                <span className="badge badge-rose">{failedProviders.length} Failed</span>
+                <span className="badge badge-rose">{failedProviders.length} 个失败</span>
               )}
             </div>
           )}
@@ -131,7 +130,7 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
             <div
               style={{
                 display: 'flex',
-                background: 'rgba(255, 255, 255, 0.04)',
+                background: 'var(--bg-hover)',
                 borderRadius: 'var(--radius-sm)',
                 padding: '2px',
                 border: '1px solid var(--border-subtle)',
@@ -156,7 +155,7 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                 }}
               >
                 <Layers size={13} />
-                <span>Group by IP</span>
+                <span>按 IP 分组</span>
               </button>
               <button
                 type="button"
@@ -177,7 +176,7 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                 }}
               >
                 <ListFilter size={13} />
-                <span>All Sources</span>
+                <span>全部来源</span>
               </button>
             </div>
           )}
@@ -194,11 +193,11 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                 alignItems: 'center',
                 gap: '5px',
                 borderRadius: 'var(--radius-full)',
-                background: 'rgba(255, 255, 255, 0.04)',
+                background: 'var(--bg-hover)',
                 border: '1px solid var(--border-subtle)',
               }}
             >
-              <span>{isExpanded ? 'Hide' : 'Details'}</span>
+              <span>{isExpanded ? '收起' : '详情'}</span>
               <ChevronDown
                 size={14}
                 style={{
@@ -237,9 +236,9 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                   <div
                     key={group.ip}
                     style={{
-                      background: 'rgba(10, 16, 28, 0.65)',
+                      background: 'var(--bg-panel)',
                       borderRadius: 'var(--radius-md)',
-                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      border: '1px solid var(--border-subtle)',
                       overflow: 'hidden',
                       transition: 'border-color var(--transition-fast)',
                     }}
@@ -252,7 +251,7 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                         justifyContent: 'space-between',
                         alignItems: 'center',
                         gap: '0.75rem',
-                        background: 'rgba(255, 255, 255, 0.02)',
+                        background: 'var(--bg-subtle)',
                         boxSizing: 'border-box',
                       }}
                     >
@@ -295,10 +294,10 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                           className="btn btn-ghost btn-icon"
                           onClick={() => copyText(group.ip, group.ip)}
                           style={{ width: '26px', height: '26px', padding: 0, flexShrink: 0 }}
-                          title="Copy IP"
+                          title="复制 IP"
                         >
                           {copiedKey === group.ip ? (
-                            <Check size={14} color="#34d399" />
+                            <Check size={14} color="var(--text-emerald)" />
                           ) : (
                             <Copy size={14} />
                           )}
@@ -319,8 +318,7 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                           ) : (
                             <ShieldCheck size={11} style={{ marginRight: '3px' }} />
                           )}
-                          {group.providers.length}{' '}
-                          {group.providers.length > 1 ? 'Verified' : 'Single Source'}
+                          {group.providers.length} {group.providers.length > 1 ? '个来源已验证' : '单一来源'}
                         </span>
                       </div>
 
@@ -360,7 +358,7 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                           onClick={() => toggleExpandIp(group.ip)}
                           aria-expanded={isExpanded}
                           aria-label={
-                            isExpanded ? 'Collapse source details' : 'Expand source details'
+                            isExpanded ? '收起来源详情' : '展开来源详情'
                           }
                           style={{ width: '28px', height: '28px', padding: 0 }}
                         >
@@ -374,7 +372,7 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                       <div
                         style={{
                           padding: '0.75rem 1.25rem',
-                          borderTop: '1px solid rgba(255, 255, 255, 0.04)',
+                          borderTop: '1px solid var(--border-subtle)',
                           display: 'flex',
                           flexDirection: 'column',
                           gap: '0.5rem',
@@ -391,7 +389,7 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                             <div
                               key={p.providerId}
                               style={{
-                                background: 'rgba(255, 255, 255, 0.02)',
+                                background: 'var(--bg-subtle)',
                                 borderRadius: 'var(--radius-sm)',
                                 padding: '8px 12px',
                                 border: '1px solid var(--border-subtle)',
@@ -447,10 +445,10 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                           color: 'var(--accent-rose)',
                         }}
                       >
-                        Unreachable / Failed Sources ({failedProviders.length})
+                        不可达 / 失败的来源（{failedProviders.length} 个）
                       </span>
                       <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                        (Ad-blockers, CORS policy, or network timeouts)
+                        （广告拦截、CORS 策略或网络超时）
                       </span>
                     </div>
 
@@ -472,7 +470,7 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                           size={12}
                           style={{ animation: isRefreshing ? 'spin 1s linear infinite' : 'none' }}
                         />
-                        <span>Retry All Failed</span>
+                        <span>重试全部失败项</span>
                       </button>
                     )}
                   </div>
@@ -489,7 +487,7 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                       <div
                         key={p.providerId}
                         style={{
-                          background: 'rgba(10, 16, 28, 0.7)',
+                          background: 'var(--bg-panel-strong)',
                           borderRadius: 'var(--radius-sm)',
                           padding: '8px 12px',
                           border: '1px solid rgba(244, 63, 94, 0.15)',
@@ -508,11 +506,11 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                           <div
                             style={{
                               fontSize: '0.75rem',
-                              color: '#fb7185',
+                              color: 'var(--text-rose)',
                               marginTop: '2px',
                             }}
                           >
-                            {p.errorMessage || 'Failed to reach API'}
+                            {p.errorMessage || '无法访问该 API'}
                           </div>
                         </div>
 
@@ -552,12 +550,12 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                         letterSpacing: '0.05em',
                       }}
                     >
-                      <th style={{ padding: '0.75rem 1rem' }}>Source / Provider</th>
-                      <th style={{ padding: '0.75rem 1rem' }}>Detected IP</th>
-                      <th style={{ padding: '0.75rem 1rem' }}>Type</th>
-                      <th style={{ padding: '0.75rem 1rem' }}>Latency</th>
-                      <th style={{ padding: '0.75rem 1rem' }}>Organization / Geo</th>
-                      <th style={{ padding: '0.75rem 1rem', textAlign: 'right' }}>Actions</th>
+                      <th style={{ padding: '0.75rem 1rem' }}>来源 / 服务商</th>
+                      <th style={{ padding: '0.75rem 1rem' }}>检测到的 IP</th>
+                      <th style={{ padding: '0.75rem 1rem' }}>类型</th>
+                      <th style={{ padding: '0.75rem 1rem' }}>延迟</th>
+                      <th style={{ padding: '0.75rem 1rem' }}>机构 / 地理位置</th>
+                      <th style={{ padding: '0.75rem 1rem', textAlign: 'right' }}>操作</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -568,11 +566,11 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                         <tr
                           key={result.providerId}
                           style={{
-                            borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
+                            borderBottom: '1px solid var(--border-subtle)',
                             transition: 'background var(--transition-fast)',
                           }}
                           onMouseEnter={(e) =>
-                            (e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)')
+                            (e.currentTarget.style.background = 'var(--bg-hover)')
                           }
                           onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
                         >
@@ -594,7 +592,7 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                           <td style={{ padding: '1rem' }}>
                             {result.status === 'loading' ? (
                               <span style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>
-                                Querying...
+                                查询中…
                               </span>
                             ) : result.status === 'error' ? (
                               <div
@@ -602,12 +600,12 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                                   display: 'flex',
                                   alignItems: 'center',
                                   gap: '6px',
-                                  color: '#fb7185',
+                                  color: 'var(--text-rose)',
                                   fontSize: '0.8125rem',
                                 }}
                               >
                                 <WifiOff size={14} />
-                                <span>{result.errorMessage || 'Failed'}</span>
+                                <span>{result.errorMessage || '失败'}</span>
                               </div>
                             ) : (
                               <span
@@ -670,7 +668,7 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                               </div>
                             ) : (
                               <span style={{ color: 'var(--text-muted)', fontSize: '0.8125rem' }}>
-                                IP Only
+                                仅 IP
                               </span>
                             )}
                           </td>
@@ -681,10 +679,10 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                                 type="button"
                                 className="btn btn-ghost btn-icon"
                                 onClick={() => result.ip && copyText(result.ip, result.providerId)}
-                                title="Copy IP"
+                                title="复制 IP"
                               >
                                 {isCopied ? (
-                                  <Check size={15} color="#34d399" />
+                                  <Check size={15} color="var(--text-emerald)" />
                                 ) : (
                                   <Copy size={15} />
                                 )}
@@ -694,7 +692,7 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                                 type="button"
                                 className="btn btn-ghost btn-icon"
                                 onClick={() => onRetryProvider(result.providerId)}
-                                title="Retry provider"
+                                title="重试该服务商"
                               >
                                 <RefreshCw size={14} />
                               </button>
@@ -738,7 +736,7 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                           display: 'flex',
                           justifyContent: 'space-between',
                           alignItems: 'center',
-                          background: 'rgba(255, 255, 255, 0.02)',
+                          background: 'var(--bg-subtle)',
                           padding: '8px 12px',
                           borderRadius: 'var(--radius-sm)',
                           border: '1px solid var(--border-subtle)',
@@ -746,7 +744,7 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                       >
                         {result.status === 'loading' ? (
                           <span style={{ color: 'var(--text-muted)', fontSize: '0.8125rem' }}>
-                            Querying...
+                            查询中…
                           </span>
                         ) : result.status === 'error' ? (
                           <div
@@ -754,12 +752,12 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                               display: 'flex',
                               alignItems: 'center',
                               gap: '6px',
-                              color: '#fb7185',
+                              color: 'var(--text-rose)',
                               fontSize: '0.8125rem',
                             }}
                           >
                             <WifiOff size={14} />
-                            <span>{result.errorMessage || 'Failed'}</span>
+                            <span>{result.errorMessage || '失败'}</span>
                           </div>
                         ) : (
                           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -794,10 +792,10 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                             type="button"
                             className="btn btn-ghost btn-icon"
                             onClick={() => result.ip && copyText(result.ip, result.providerId)}
-                            title="Copy IP"
+                            title="复制 IP"
                             style={{ flexShrink: 0 }}
                           >
-                            {isCopied ? <Check size={14} color="#34d399" /> : <Copy size={14} />}
+                            {isCopied ? <Check size={14} color="var(--text-emerald)" /> : <Copy size={14} />}
                           </button>
                         )}
                       </div>
@@ -817,7 +815,7 @@ export const ComparisonMatrix: React.FC<ComparisonMatrixProps> = ({
                             {[result.geo.city, result.geo.country].filter(Boolean).join(', ')}
                           </span>
                         ) : (
-                          <span>IP Only</span>
+                          <span>仅 IP</span>
                         )}
                       </div>
                     </div>

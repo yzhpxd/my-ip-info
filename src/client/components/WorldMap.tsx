@@ -125,21 +125,21 @@ export const WorldMap: React.FC<WorldMapProps> = ({ results, geo, isInitialLoadi
         });
 
         const locationText =
-          [pt.city, pt.country].filter(Boolean).join(', ') || 'Reported Location';
+          [pt.city, pt.country].filter(Boolean).join(', ') || '报告位置';
 
         const marker = L.marker(latLng, { icon });
         marker.bindPopup(`
-          <div style="padding: 4px 6px; font-family: sans-serif;">
-            <div style="font-weight: 700; font-size: 13px; color: #f8fafc; margin-bottom: 2px;">
+          <div class="map-popup" style="padding: 4px 6px; font-family: sans-serif;">
+            <div class="map-popup-title" style="font-weight: 700; font-size: 13px; margin-bottom: 2px;">
               ${escapeHtml(pt.provider)}
             </div>
-            <div style="font-size: 11px; color: #94a3b8; margin-bottom: 4px;">
+            <div class="map-popup-sub" style="font-size: 11px; margin-bottom: 4px;">
               ${escapeHtml(locationText)}
             </div>
-            <div style="font-family: monospace; font-size: 11px; color: #38bdf8;">
+            <div class="map-popup-ip" style="font-family: monospace; font-size: 11px;">
               ${escapeHtml(pt.ip)}
             </div>
-            <div style="font-size: 10px; color: #64748b; margin-top: 4px;">
+            <div class="map-popup-coords" style="font-size: 10px; margin-top: 4px;">
               Lat: ${pt.lat.toFixed(4)}, Lng: ${pt.lng.toFixed(4)}
             </div>
           </div>
@@ -201,12 +201,12 @@ export const WorldMap: React.FC<WorldMapProps> = ({ results, geo, isInitialLoadi
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <MapPin size={16} color="var(--accent-cyan)" />
                 <h2 style={{ fontSize: '1.0625rem', fontWeight: 700, margin: 0 }}>
-                  {locationTitle || 'Resolving location...'}
+                  {locationTitle || '正在解析位置…'}
                 </h2>
               </div>
               {geo?.timezone && (
                 <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                  Timezone: {geo.timezone}
+                  时区：{geo.timezone}
                 </span>
               )}
             </div>
@@ -233,11 +233,11 @@ export const WorldMap: React.FC<WorldMapProps> = ({ results, geo, isInitialLoadi
           {geoPoints.length > 0 ? (
             <span className="badge badge-emerald" style={{ fontSize: '0.75rem' }}>
               <Navigation size={12} style={{ marginRight: '4px' }} />
-              {geoPoints.length} Convergence Pin{geoPoints.length > 1 ? 's' : ''}
+              {geoPoints.length} 个聚合标记
             </span>
           ) : (
             <span className="badge badge-amber" style={{ fontSize: '0.75rem' }}>
-              Awaiting Map Coordinates
+              等待地图坐标
             </span>
           )}
         </div>

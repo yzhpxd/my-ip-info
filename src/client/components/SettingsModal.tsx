@@ -92,12 +92,12 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
       const parsed = new URL(targetUrl);
       if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
         setTestStatus('error');
-        setTestMessage('Invalid protocol: only http:// and https:// are supported');
+        setTestMessage('协议无效：仅支持 http:// 和 https://');
         return;
       }
     } catch {
       setTestStatus('error');
-      setTestMessage('Invalid URL format');
+      setTestMessage('URL 格式无效');
       return;
     }
 
@@ -118,17 +118,17 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
         const data = await res.json();
         setTestStatus('success');
         setTestMessage(
-          `Success! Responded in ${latency}ms. Detected IP: ${data.ip || data.query || 'N/A'}`
+          `成功！${latency}ms 内响应。检测到的 IP：${data.ip || data.query || 'N/A'}`
         );
       } else {
         const text = (await res.text()).trim();
         setTestStatus('success');
-        setTestMessage(`Success! Responded in ${latency}ms. Output: ${text.slice(0, 40)}`);
+        setTestMessage(`成功！${latency}ms 内响应。输出：${text.slice(0, 40)}`);
       }
     } catch (err: unknown) {
-      const errorMessage = err instanceof Error ? err.message : 'CORS blocked or unreachable';
+      const errorMessage = err instanceof Error ? err.message : 'CORS 被拦截或无法访问';
       setTestStatus('error');
-      setTestMessage(`Failed: ${errorMessage}`);
+      setTestMessage(`失败：${errorMessage}`);
     }
   };
 
@@ -141,18 +141,18 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
       parsedUrl = new URL(trimmedUrl);
       if (parsedUrl.protocol !== 'http:' && parsedUrl.protocol !== 'https:') {
         setTestStatus('error');
-        setTestMessage('Invalid protocol: only http:// and https:// are supported');
+        setTestMessage('协议无效：仅支持 http:// 和 https://');
         return;
       }
     } catch {
       setTestStatus('error');
-      setTestMessage('Invalid URL format');
+      setTestMessage('URL 格式无效');
       return;
     }
 
     let endpointName = name.trim();
     if (!endpointName) {
-      endpointName = parsedUrl.hostname || 'Custom Endpoint';
+      endpointName = parsedUrl.hostname || '自定义节点';
     }
 
     const newEndpoint: CustomEndpoint = {
@@ -191,10 +191,10 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 
   const getRegionBadgeClass = (tag?: string) => {
     if (!tag) return 'badge-cyan';
-    if (tag.includes('China')) return 'badge-rose';
-    if (tag.includes('Asia')) return 'badge-amber';
-    if (tag.includes('Europe')) return 'badge-indigo';
-    if (tag.includes('US')) return 'badge-cyan';
+    if (tag.includes('中国')) return 'badge-rose';
+    if (tag.includes('亚太')) return 'badge-amber';
+    if (tag.includes('欧洲')) return 'badge-indigo';
+    if (tag.includes('美国')) return 'badge-cyan';
     return 'badge-emerald';
   };
 
@@ -204,13 +204,13 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
         <div className="modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Settings size={18} color="var(--accent-primary)" />
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 700 }}>Settings & API Providers</h3>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 700 }}>设置与 API 服务商</h3>
           </div>
           <button
             type="button"
             className="btn btn-ghost btn-icon"
             onClick={onClose}
-            title="Close modal"
+            title="关闭弹窗"
           >
             <X size={18} />
           </button>
@@ -224,7 +224,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             onClick={() => setActiveTab('providers')}
           >
             <Globe size={15} />
-            <span>Public APIs</span>
+            <span>公共 API</span>
             <span
               className="badge badge-emerald"
               style={{ padding: '1px 6px', fontSize: '0.6875rem' }}
@@ -239,7 +239,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             onClick={() => setActiveTab('custom')}
           >
             <Server size={15} />
-            <span>Custom APIs</span>
+            <span>自定义 API</span>
             {activeEndpointsCount > 0 && (
               <span
                 className="badge badge-cyan"
@@ -256,7 +256,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             onClick={() => setActiveTab('backend')}
           >
             <Cloud size={15} />
-            <span>Worker Override</span>
+            <span>Worker 覆盖</span>
           </button>
         </div>
 
@@ -273,8 +273,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                 }}
               >
                 <p style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', margin: 0 }}>
-                  Enable or disable individual public lookup services according to your region and
-                  preferences.
+                  根据你的地区与偏好，启用或停用各个公共查询服务。
                 </p>
                 {onEnableAllProviders && disabledProviderIds.length > 0 && (
                   <button
@@ -283,7 +282,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     onClick={onEnableAllProviders}
                     style={{ fontSize: '0.75rem', padding: '4px 8px', flexShrink: 0 }}
                   >
-                    Enable All
+                    全部启用
                   </button>
                 )}
               </div>
@@ -308,9 +307,9 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         padding: '0.75rem 1rem',
-                        background: isEnabled ? 'rgba(10, 16, 28, 0.65)' : 'rgba(10, 16, 28, 0.3)',
+                        background: isEnabled ? 'var(--bg-panel)' : 'var(--bg-subtle)',
                         borderRadius: 'var(--radius-sm)',
-                        border: `1px solid ${isEnabled ? 'var(--border-subtle)' : 'rgba(255, 255, 255, 0.04)'}`,
+                        border: `1px solid ${isEnabled ? 'var(--border-subtle)' : 'var(--border-subtle)'}`,
                         opacity: isEnabled ? 1 : 0.6,
                         transition: 'all var(--transition-fast)',
                       }}
@@ -381,14 +380,13 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
           {activeTab === 'custom' && (
             <>
               <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
-                Add custom serverless functions, Cloudflare Workers, or external IP APIs to
-                cross-validate your IP and latency in real-time.
+                添加自定义无服务器函数、Cloudflare Worker 或外部 IP API，实时交叉验证你的 IP 与延迟。
               </p>
 
               {/* Add New Endpoint Form */}
               <div
                 style={{
-                  background: 'rgba(255, 255, 255, 0.03)',
+                  background: 'var(--bg-subtle)',
                   padding: '1.25rem',
                   borderRadius: 'var(--radius-md)',
                   border: '1px solid var(--border-subtle)',
@@ -399,13 +397,13 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               >
                 <div className="form-group">
                   <label className="form-label" htmlFor="endpoint-name-input">
-                    Endpoint Name / Label
+                    节点名称 / 标签
                   </label>
                   <input
                     id="endpoint-name-input"
                     className="form-input"
                     type="text"
-                    placeholder="e.g. My Custom Cloudflare Worker"
+                    placeholder="例如：我的自定义 Cloudflare Worker"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
@@ -413,7 +411,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 
                 <div className="form-group">
                   <label className="form-label" htmlFor="endpoint-url-input">
-                    Endpoint URL
+                    节点 URL
                   </label>
                   <input
                     id="endpoint-url-input"
@@ -438,7 +436,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                         testStatus === 'success'
                           ? 'rgba(16, 185, 129, 0.1)'
                           : 'rgba(244, 63, 94, 0.1)',
-                      color: testStatus === 'success' ? '#34d399' : '#fb7185',
+                      color: testStatus === 'success' ? 'var(--text-emerald)' : 'var(--text-rose)',
                       border: `1px solid ${
                         testStatus === 'success'
                           ? 'rgba(16, 185, 129, 0.2)'
@@ -463,7 +461,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     disabled={!url.trim() || testStatus === 'testing'}
                   >
                     <Play size={14} />
-                    <span>{testStatus === 'testing' ? 'Testing...' : 'Test URL'}</span>
+                    <span>{testStatus === 'testing' ? '检测中…' : '测试 URL'}</span>
                   </button>
 
                   <button
@@ -473,7 +471,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     disabled={!url.trim()}
                   >
                     <Plus size={15} />
-                    <span>Add Endpoint</span>
+                    <span>添加节点</span>
                   </button>
                 </div>
               </div>
@@ -488,12 +486,12 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     marginBottom: '0.75rem',
                   }}
                 >
-                  Configured Endpoints ({endpoints.length})
+                  已配置的节点（{endpoints.length} 个）
                 </h4>
 
                 {endpoints.length === 0 ? (
                   <p style={{ fontSize: '0.8125rem', color: 'var(--text-muted)' }}>
-                    No custom endpoints added yet. Add one above to test!
+                    尚未添加自定义节点，在上方添加一个试试！
                   </p>
                 ) : (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -505,7 +503,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                           alignItems: 'center',
                           justifyContent: 'space-between',
                           padding: '0.75rem 1rem',
-                          background: 'rgba(10, 16, 28, 0.6)',
+                          background: 'var(--bg-panel)',
                           borderRadius: 'var(--radius-sm)',
                           border: '1px solid var(--border-subtle)',
                         }}
@@ -539,10 +537,10 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                         <button
                           className="btn btn-ghost btn-icon"
                           onClick={() => handleDeleteEndpoint(ep.id)}
-                          title="Delete endpoint"
+                          title="删除节点"
                           type="button"
                         >
-                          <Trash2 size={15} color="#fb7185" />
+                          <Trash2 size={15} color="var(--text-rose)" />
                         </button>
                       </div>
                     ))}
@@ -556,17 +554,16 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
           {activeTab === 'backend' && (
             <>
               <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
-                By default, my-ip-info queries its own unified Worker at{' '}
-                <code className="mono">/api/v1/info</code>. You can optionally specify a custom or
-                remote Worker URL here to override or test.
+                默认情况下，本站通过 <code className="mono">/api/v1/info</code>{' '}
+                查询自带的统一 Worker。你也可以在这里指定自定义或远程 Worker 地址进行覆盖或测试。
               </p>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 <div className="form-group">
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <Cloud size={15} color="#38bdf8" />
+                    <Cloud size={15} color="var(--text-cyan)" />
                     <label className="form-label" htmlFor="cloudflare-worker-url">
-                      Cloudflare Worker URL
+                      Cloudflare Worker 地址
                     </label>
                   </div>
                   <input
@@ -589,11 +586,11 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                 }}
               >
                 <button className="btn btn-ghost" onClick={onClose} type="button">
-                  Cancel
+                  取消
                 </button>
                 <button className="btn btn-primary" onClick={handleSaveConfig} type="button">
                   <Save size={15} />
-                  <span>Save & Update</span>
+                  <span>保存并更新</span>
                 </button>
               </div>
             </>

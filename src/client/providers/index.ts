@@ -6,9 +6,9 @@ export const PUBLIC_PROVIDERS: IpProvider[] = [
     id: 'cloudflare-trace',
     name: 'Cloudflare Trace',
     category: 'public',
-    regionTag: 'Global Anycast',
+    regionTag: '全球 Anycast',
     endpointUrl: 'https://1.1.1.1/cdn-cgi/trace',
-    description: 'Cloudflare direct edge trace endpoint',
+    description: 'Cloudflare 边缘直连追踪端点',
     fetchIp: async (signal?: AbortSignal) => {
       const res = await fetch(`https://1.1.1.1/cdn-cgi/trace?t=${Date.now()}`, {
         signal,
@@ -18,7 +18,7 @@ export const PUBLIC_PROVIDERS: IpProvider[] = [
       const text = await res.text();
       const ipMatch = text.match(/^ip=(.+)$/m);
       const locMatch = text.match(/^loc=(.+)$/m);
-      if (!ipMatch) throw new Error('No IP in trace response');
+      if (!ipMatch) throw new Error('追踪响应中没有 IP');
       const ip = ipMatch[1].trim();
       return {
         ip,
@@ -31,9 +31,9 @@ export const PUBLIC_PROVIDERS: IpProvider[] = [
     id: 'ipify-v4',
     name: 'ipify (IPv4)',
     category: 'public',
-    regionTag: 'US Backbone',
+    regionTag: '美国骨干',
     endpointUrl: 'https://api.ipify.org?format=json',
-    description: 'High-availability public IPv4 resolution',
+    description: '高可用的公共 IPv4 解析',
     fetchIp: async (signal?: AbortSignal) => {
       const res = await fetch(`https://api.ipify.org?format=json&t=${Date.now()}`, {
         signal,
@@ -49,11 +49,11 @@ export const PUBLIC_PROVIDERS: IpProvider[] = [
   },
   {
     id: 'ipify-v64',
-    name: 'ipify (Universal v6/v4)',
+    name: 'ipify（通用 v6/v4）',
     category: 'public',
-    regionTag: 'Global Dual-Stack',
+    regionTag: '全球双栈',
     endpointUrl: 'https://api64.ipify.org?format=json',
-    description: 'Dual-stack public IP resolution (prefers IPv6)',
+    description: '双栈公共 IP 解析（优先 IPv6）',
     fetchIp: async (signal?: AbortSignal) => {
       const res = await fetch(`https://api64.ipify.org?format=json&t=${Date.now()}`, {
         signal,
@@ -71,9 +71,9 @@ export const PUBLIC_PROVIDERS: IpProvider[] = [
     id: 'ipwhois',
     name: 'ipwho.is',
     category: 'public',
-    regionTag: 'Global Multi-Region',
+    regionTag: '全球多地区',
     endpointUrl: 'https://ipwho.is/',
-    description: 'Free CORS-compliant geolocation and ASN lookup',
+    description: '免费、支持 CORS 的地理位置与 ASN 查询',
     fetchIp: async (signal?: AbortSignal) => {
       const res = await fetch(`https://ipwho.is/?t=${Date.now()}`, {
         signal,
@@ -82,7 +82,7 @@ export const PUBLIC_PROVIDERS: IpProvider[] = [
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       if (data.success === false) {
-        throw new Error(data.message || 'Lookup failed');
+        throw new Error(data.message || '查询失败');
       }
       return {
         ip: data.ip,
@@ -104,9 +104,9 @@ export const PUBLIC_PROVIDERS: IpProvider[] = [
     id: 'icanhazip',
     name: 'icanhazip',
     category: 'public',
-    regionTag: 'Global Anycast',
+    regionTag: '全球 Anycast',
     endpointUrl: 'https://icanhazip.com',
-    description: 'Cloudflare-backed plaintext IP reflection',
+    description: '由 Cloudflare 提供支持的纯文本 IP 回显',
     fetchIp: async (signal?: AbortSignal) => {
       const res = await fetch(`https://icanhazip.com?t=${Date.now()}`, {
         signal,
@@ -122,11 +122,11 @@ export const PUBLIC_PROVIDERS: IpProvider[] = [
   },
   {
     id: 'ipsb',
-    name: 'IP.SB (Anycast)',
+    name: 'IP.SB（Anycast）',
     category: 'public',
-    regionTag: 'Asia-Pacific / Anycast',
+    regionTag: '亚太 / Anycast',
     endpointUrl: 'https://api.ip.sb/geoip',
-    description: 'Asia-Pacific & global Anycast IP and Geo resolution',
+    description: '亚太及全球 Anycast IP 与地理位置解析',
     fetchIp: async (signal?: AbortSignal) => {
       const res = await fetch(`https://api.ip.sb/geoip?t=${Date.now()}`, {
         signal,
@@ -154,9 +154,9 @@ export const PUBLIC_PROVIDERS: IpProvider[] = [
     id: 'ipguide',
     name: 'ip.guide',
     category: 'public',
-    regionTag: 'Global Anycast',
+    regionTag: '全球 Anycast',
     endpointUrl: 'https://ip.guide/',
-    description: 'Global Anycast network and AS intelligence',
+    description: '全球 Anycast 网络与 AS 信息',
     fetchIp: async (signal?: AbortSignal) => {
       const res = await fetch(`https://ip.guide/?t=${Date.now()}`, {
         signal,
@@ -183,9 +183,9 @@ export const PUBLIC_PROVIDERS: IpProvider[] = [
     id: 'seeip',
     name: 'SeeIP',
     category: 'public',
-    regionTag: 'Europe / Multi-Region',
+    regionTag: '欧洲 / 多地区',
     endpointUrl: 'https://api.seeip.org/geoip',
-    description: 'European & multi-region IP and geolocation resolution',
+    description: '欧洲及多地区 IP 与地理位置解析',
     fetchIp: async (signal?: AbortSignal) => {
       const res = await fetch(`https://api.seeip.org/geoip?t=${Date.now()}`, {
         signal,
@@ -211,11 +211,11 @@ export const PUBLIC_PROVIDERS: IpProvider[] = [
   },
   {
     id: 'ipip-net',
-    name: 'IPIP.net (China)',
+    name: 'IPIP.net（中国）',
     category: 'public',
-    regionTag: 'Mainland China',
+    regionTag: '中国大陆',
     endpointUrl: 'https://myip.ipip.net/json',
-    description: 'Premier Mainland China domestic routing and IP intelligence',
+    description: '中国大陆优质的国内路由与 IP 信息',
     fetchIp: async (signal?: AbortSignal) => {
       // NOTE: myip.ipip.net server strips Access-Control-Allow-Origin when query parameters are present.
       // cache: 'no-store' is sufficient to ensure fresh browser requests.
@@ -226,7 +226,7 @@ export const PUBLIC_PROVIDERS: IpProvider[] = [
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       if (data.ret !== 'ok' || !data.data?.ip) {
-        throw new Error('Invalid response from IPIP.net');
+        throw new Error('IPIP.net 返回了无效响应');
       }
       const loc = data.data.location || [];
       const country = loc[0] || undefined;
@@ -253,16 +253,16 @@ export const PUBLIC_PROVIDERS: IpProvider[] = [
  */
 export function getSelfHostedProviders(config: { cloudflareUrl?: string }): IpProvider[] {
   const baseUrl = config.cloudflareUrl?.trim() || '';
-  const endpointDisplay = baseUrl || 'Self-Hosted Edge Worker (Same Origin)';
+  const endpointDisplay = baseUrl || '自托管边缘 Worker（同源）';
 
   const providers: IpProvider[] = [
     {
       id: 'self-cloudflare',
-      name: 'Cloudflare Worker (Edge)',
+      name: 'Cloudflare Worker（边缘）',
       category: 'self-hosted',
-      regionTag: 'Self-Hosted Edge',
+      regionTag: '自托管边缘',
       endpointUrl: endpointDisplay,
-      description: 'Edge Worker with native CF Geo, ASN & TLS headers',
+      description: '边缘 Worker，原生支持 CF 地理位置、ASN 与 TLS 请求头',
       fetchIp: async (signal?: AbortSignal) => {
         const origin = typeof window !== 'undefined' ? window.location.origin : 'http://localhost';
         const urlObj = baseUrl ? new URL('/api/v1/info', baseUrl) : new URL('/api/v1/info', origin);
@@ -295,14 +295,14 @@ export function getSelfHostedProviders(config: { cloudflareUrl?: string }): IpPr
     metaEnv?.VITE_ENABLE_IP2LOCATION === 'true' ||
     (typeof process !== 'undefined' && process.env?.VITE_ENABLE_IP2LOCATION === 'true');
   if (isIp2LocationEnabled) {
-    const ip2Display = baseUrl ? `${baseUrl}/api/v1/ip2location` : 'Self-Hosted IP2Location.io';
+    const ip2Display = baseUrl ? `${baseUrl}/api/v1/ip2location` : '自托管 IP2Location.io';
     providers.push({
       id: 'self-ip2location',
-      name: 'IP2Location.io (Self-Hosted)',
+      name: 'IP2Location.io（自托管）',
       category: 'self-hosted',
-      regionTag: 'IP2Location Global',
+      regionTag: 'IP2Location 全球',
       endpointUrl: ip2Display,
-      description: 'Self-hosted IP intelligence powered by IP2Location.io API',
+      description: '由 IP2Location.io API 驱动的自托管 IP 信息',
       fetchIp: async (signal?: AbortSignal) => {
         const origin = typeof window !== 'undefined' ? window.location.origin : 'http://localhost';
         const urlObj = baseUrl
@@ -319,11 +319,11 @@ export function getSelfHostedProviders(config: { cloudflareUrl?: string }): IpPr
         const data = await res.json();
 
         if (data.configured === false || data.error) {
-          throw new Error(data.error || 'IP2Location API is not configured');
+          throw new Error(data.error || 'IP2Location API 未配置');
         }
 
         if (!data.ip) {
-          throw new Error('No IP returned from IP2Location');
+          throw new Error('IP2Location 未返回 IP');
         }
 
         const ip = String(data.ip).trim();
@@ -376,7 +376,7 @@ export function getCustomEndpointProviders(customEndpoints: CustomEndpoint[]): I
     .filter((ep) => ep.enabled && ep.url)
     .map((ep) => ({
       id: `custom-${ep.id}`,
-      name: ep.name || 'Custom Endpoint',
+      name: ep.name || '自定义节点',
       category: 'custom',
       endpointUrl: ep.url,
       description: ep.url,

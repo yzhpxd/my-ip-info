@@ -36,7 +36,7 @@ export const ErrorBanner: React.FC<ErrorBannerProps> = ({
   const failedNames = failedResults.map((r) => r.providerName).slice(0, 3);
   const remainingCount = failedResults.length - failedNames.length;
   const failedSummary =
-    failedNames.join(', ') + (remainingCount > 0 ? ` +${remainingCount} more` : '');
+    failedNames.join(', ') + (remainingCount > 0 ? ` 等 ${remainingCount} 个` : '');
 
   return (
     <div
@@ -78,12 +78,12 @@ export const ErrorBanner: React.FC<ErrorBannerProps> = ({
             style={{
               fontSize: '0.875rem',
               fontWeight: 600,
-              color: isAllFailed ? 'var(--accent-rose)' : '#fef08a',
+              color: isAllFailed ? 'var(--accent-rose)' : 'var(--accent-amber)',
             }}
           >
             {isAllFailed
-              ? 'All IP detection services failed to respond'
-              : `${failedResults.length} IP provider${failedResults.length > 1 ? 's' : ''} failed to respond`}
+              ? '全部 IP 检测服务均无响应'
+              : `${failedResults.length} 个 IP 服务商无响应`}
           </div>
           <div
             style={{
@@ -93,8 +93,8 @@ export const ErrorBanner: React.FC<ErrorBannerProps> = ({
             }}
           >
             {isAllFailed
-              ? 'Please check your internet connection or proxy settings.'
-              : `Affected: ${failedSummary}. You may be blocked by ad-blocker, CORS, or experiencing timeout.`}
+              ? '请检查你的网络连接或代理设置。'
+              : `受影响：${failedSummary}。可能被广告拦截器拦截、受 CORS 限制，或请求超时。`}
           </div>
         </div>
       </div>
@@ -118,7 +118,7 @@ export const ErrorBanner: React.FC<ErrorBannerProps> = ({
             size={13}
             style={{ animation: isRefreshing ? 'spin 1s linear infinite' : 'none' }}
           />
-          <span>{isAllFailed ? 'Retry All' : 'Retry Failed'}</span>
+          <span>{isAllFailed ? '全部重试' : '重试失败项'}</span>
         </button>
 
         {onViewDetails && (
@@ -135,7 +135,7 @@ export const ErrorBanner: React.FC<ErrorBannerProps> = ({
               color: 'var(--text-secondary)',
             }}
           >
-            <span>View Errors</span>
+            <span>查看错误</span>
             <ChevronRight size={13} />
           </button>
         )}
@@ -145,7 +145,7 @@ export const ErrorBanner: React.FC<ErrorBannerProps> = ({
           className="btn btn-ghost btn-icon"
           onClick={() => setIsDismissed(true)}
           style={{ width: '28px', height: '28px', padding: 0 }}
-          title="Dismiss banner"
+          title="关闭提示"
         >
           <X size={14} />
         </button>

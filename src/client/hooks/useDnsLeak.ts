@@ -42,11 +42,11 @@ export function useDnsLeak(clientCountry?: string) {
         cache: 'no-store',
       });
       if (!idRes.ok) {
-        throw new Error(`Failed to initialize DNS test: HTTP ${idRes.status}`);
+        throw new Error(`初始化 DNS 检测失败：HTTP ${idRes.status}`);
       }
       const testId = (await idRes.text()).trim();
       if (!testId || testId.length > 64) {
-        throw new Error('Invalid test ID returned by DNS probe authority');
+        throw new Error('DNS 探测服务返回了无效的测试 ID');
       }
 
       // 2. Trigger nonce subdomain DNS queries across network interfaces
@@ -80,7 +80,7 @@ export function useDnsLeak(clientCountry?: string) {
         cache: 'no-store',
       });
       if (!resultRes.ok) {
-        throw new Error(`Failed to retrieve DNS results: HTTP ${resultRes.status}`);
+        throw new Error(`获取 DNS 检测结果失败：HTTP ${resultRes.status}`);
       }
 
       const rawData = await resultRes.json();
@@ -98,7 +98,7 @@ export function useDnsLeak(clientCountry?: string) {
       });
     } catch (err) {
       if (abortController.signal.aborted) return;
-      const message = err instanceof Error ? err.message : 'Unknown DNS probe error';
+      const message = err instanceof Error ? err.message : '未知的 DNS 探测错误';
       setResult((prev) => ({
         ...prev,
         status: 'error',

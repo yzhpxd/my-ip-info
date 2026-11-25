@@ -1,4 +1,3 @@
-import { Code2, Shield } from 'lucide-react';
 import type React from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { CliToolboxModal } from './components/CliToolboxModal';
@@ -300,7 +299,7 @@ export const App: React.FC = () => {
               textTransform: 'uppercase',
             }}
           >
-            Diagnostics & Leak Tests
+            诊断与泄漏检测
           </span>
           <button
             type="button"
@@ -308,7 +307,7 @@ export const App: React.FC = () => {
             onClick={handleToggleAllSections}
             style={{ fontSize: '0.75rem', padding: '2px 8px', color: 'var(--text-muted)' }}
           >
-            {isAllExpanded ? 'Collapse All' : 'Expand All'}
+            {isAllExpanded ? '全部收起' : '全部展开'}
           </button>
         </div>
 
@@ -386,48 +385,11 @@ export const App: React.FC = () => {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <span>Powered by Cloudflare Workers & Cloudflare Pages</span>
+          <span>由 Cloudflare Workers 与 Cloudflare Pages 提供支持</span>
           <span>•</span>
           <span>{__APP_VERSION__}</span>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginTop: '4px' }}>
-          <button
-            type="button"
-            onClick={() => setIsPrivacyModalOpen(true)}
-            style={{
-              background: 'none',
-              border: 'none',
-              padding: 0,
-              display: 'flex',
-              alignItems: 'center',
-              gap: '5px',
-              color: 'var(--text-secondary)',
-              cursor: 'pointer',
-              fontSize: 'inherit',
-              fontFamily: 'inherit',
-            }}
-          >
-            <Shield size={15} />
-            <span>Privacy Policy</span>
-          </button>
-          <span>•</span>
-          <a
-            href="https://github.com/ii2d/my-ip-info"
-            target="_blank"
-            rel="noreferrer"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '5px',
-              color: 'var(--text-secondary)',
-              textDecoration: 'none',
-            }}
-          >
-            <Code2 size={15} />
-            <span>GitHub Repository</span>
-          </a>
-        </div>
       </footer>
     </div>
   );

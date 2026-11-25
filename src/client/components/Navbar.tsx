@@ -1,5 +1,4 @@
 import {
-  ExternalLink,
   Globe,
   History,
   Menu,
@@ -12,22 +11,6 @@ import {
 import type React from 'react';
 import { useEffect, useState } from 'react';
 
-const GithubIcon: React.FC<{ size?: number }> = ({ size = 16 }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-  </svg>
-);
-
 interface NavbarProps {
   isRefreshing: boolean;
   onRefresh: () => void;
@@ -38,8 +21,6 @@ interface NavbarProps {
   activeEndpointsCount: number;
   historyCount?: number;
 }
-
-const GITHUB_REPO_URL = 'https://github.com/ii2d/my-ip-info';
 
 export const Navbar: React.FC<NavbarProps> = ({
   isRefreshing,
@@ -74,11 +55,11 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
         <div className="brand-text">
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span className="brand-title">My IP Info</span>
+            <span className="brand-title">我的 IP 信息</span>
             <span className="brand-badge">{__APP_VERSION__}</span>
           </div>
           <p className="nav-subtitle" style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-            Multi-Source IP & Connectivity Intelligence
+            多源 IP 与网络连接智能
           </p>
         </div>
       </div>
@@ -89,7 +70,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             className="btn btn-ghost"
             onClick={onOpenCliModal}
-            title="CLI / cURL commands"
+            title="CLI / cURL 命令"
             type="button"
           >
             <Terminal size={16} />
@@ -99,11 +80,11 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             className="btn btn-ghost"
             onClick={onOpenSettingsModal}
-            title="Configure Custom Endpoints & Cloudflare Worker"
+            title="配置自定义节点与 Cloudflare Worker"
             type="button"
           >
             <Settings size={16} />
-            <span className="nav-btn-text">Settings</span>
+            <span className="nav-btn-text">设置</span>
             {activeEndpointsCount > 0 && (
               <span
                 className="badge badge-cyan"
@@ -117,11 +98,11 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             className="btn btn-ghost"
             onClick={onOpenHistoryModal}
-            title="View Local IP Connection History"
+            title="查看本地 IP 连接历史"
             type="button"
           >
             <History size={16} />
-            <span className="nav-btn-text">History</span>
+            <span className="nav-btn-text">历史</span>
             {historyCount !== undefined && historyCount > 0 && (
               <span
                 className="badge badge-indigo"
@@ -132,16 +113,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             )}
           </button>
 
-          <a
-            href={GITHUB_REPO_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="btn btn-ghost"
-            title="GitHub Repository"
-          >
-            <GithubIcon size={16} />
-            <span className="nav-btn-text">GitHub</span>
-          </a>
         </div>
 
         {/* Primary action: standalone on all screen sizes */}
@@ -150,10 +121,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           onClick={onRefresh}
           disabled={isRefreshing}
           type="button"
-          title="Refresh all IP sources"
+          title="刷新全部 IP 来源"
         >
           <RefreshCw size={15} className={isRefreshing ? 'spin-anim' : ''} />
-          <span className="nav-btn-text">{isRefreshing ? 'Checking...' : 'Refresh'}</span>
+          <span className="nav-btn-text">{isRefreshing ? '检测中…' : '刷新'}</span>
         </button>
 
         {/* Mobile menu trigger and dropdown (visible only on mobile) */}
@@ -161,14 +132,14 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             className="btn btn-ghost btn-icon nav-mobile-menu-btn"
             onClick={() => setIsMenuOpen((prev) => !prev)}
-            title="More options"
+            title="更多选项"
             type="button"
             aria-expanded={isMenuOpen}
             aria-haspopup="true"
           >
             {isMenuOpen ? <X size={18} /> : <Menu size={18} />}
             {activeEndpointsCount > 0 && !isMenuOpen && (
-              <span className="nav-menu-dot" title={`${activeEndpointsCount} active custom APIs`} />
+              <span className="nav-menu-dot" title={`${activeEndpointsCount} 个已启用的自定义 API`} />
             )}
           </button>
 
@@ -190,7 +161,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   }}
                 >
                   <Terminal size={16} />
-                  <span>cURL / CLI Toolbox</span>
+                  <span>cURL / CLI 工具箱</span>
                 </button>
 
                 <button
@@ -203,7 +174,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   }}
                 >
                   <Settings size={16} />
-                  <span style={{ flex: 1 }}>Settings & Custom APIs</span>
+                  <span style={{ flex: 1 }}>设置与自定义 API</span>
                   {activeEndpointsCount > 0 && (
                     <span
                       className="badge badge-cyan"
@@ -224,7 +195,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   }}
                 >
                   <History size={16} />
-                  <span style={{ flex: 1 }}>IP History</span>
+                  <span style={{ flex: 1 }}>IP 历史</span>
                   {historyCount !== undefined && historyCount > 0 && (
                     <span
                       className="badge badge-indigo"
@@ -246,24 +217,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                     }}
                   >
                     <Shield size={16} />
-                    <span>Privacy Policy</span>
+                    <span>隐私政策</span>
                   </button>
                 )}
 
-                <div className="nav-dropdown-divider" />
-
-                <a
-                  href={GITHUB_REPO_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="nav-dropdown-item"
-                  role="menuitem"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <GithubIcon size={16} />
-                  <span style={{ flex: 1 }}>GitHub Repository</span>
-                  <ExternalLink size={13} color="var(--text-muted)" />
-                </a>
               </div>
             </>
           )}

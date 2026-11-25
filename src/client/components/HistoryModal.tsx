@@ -33,13 +33,13 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
     if (!onRecordCurrentSnapshot) return;
     const res = onRecordCurrentSnapshot() as { recorded: boolean; reason: string } | undefined;
     if (res?.recorded) {
-      setSnapshotFeedback('Snapshot saved!');
+      setSnapshotFeedback('快照已保存！');
     } else if (res?.reason === 'unchanged') {
-      setSnapshotFeedback('Already up to date');
+      setSnapshotFeedback('已是最新');
     } else if (res?.reason === 'no-ip') {
-      setSnapshotFeedback('IP not ready');
+      setSnapshotFeedback('IP 未就绪');
     } else {
-      setSnapshotFeedback('Snapshot saved!');
+      setSnapshotFeedback('快照已保存！');
     }
     setTimeout(() => setSnapshotFeedback(null), 2500);
   };
@@ -79,13 +79,13 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
     try {
       const ms = Date.now() - new Date(isoString).getTime();
       const secs = Math.floor(ms / 1000);
-      if (secs < 60) return 'just now';
+      if (secs < 60) return '刚刚';
       const mins = Math.floor(secs / 60);
-      if (mins < 60) return `${mins}m ago`;
+      if (mins < 60) return `${mins} 分钟前`;
       const hours = Math.floor(mins / 60);
-      if (hours < 24) return `${hours}h ago`;
+      if (hours < 24) return `${hours} 小时前`;
       const days = Math.floor(hours / 24);
-      return `${days}d ago`;
+      return `${days} 天前`;
     } catch {
       return '';
     }
@@ -121,7 +121,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
   };
 
   const handleExportCsv = () => {
-    const headers = ['Timestamp', 'IPv4', 'IPv6', 'Country', 'City', 'ISP'];
+    const headers = ['时间戳', 'IPv4', 'IPv6', '国家', '城市', '运营商'];
     const rows = history.map((entry) => [
       escapeCsvCell(entry.timestamp),
       escapeCsvCell(entry.ipv4),
@@ -145,13 +145,13 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
         <div className="modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <History size={18} color="var(--accent-primary)" />
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 700 }}>IP Connection History</h3>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 700 }}>IP 连接历史</h3>
           </div>
           <button
             type="button"
             className="btn btn-ghost btn-icon"
             onClick={onClose}
-            title="Close modal"
+            title="关闭弹窗"
           >
             <X size={18} />
           </button>
@@ -168,7 +168,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
               gap: '12px',
               padding: '0.875rem 1rem',
               borderRadius: 'var(--radius-sm)',
-              background: 'rgba(255, 255, 255, 0.03)',
+              background: 'var(--bg-subtle)',
               border: '1px solid var(--border-subtle)',
             }}
           >
@@ -190,13 +190,13 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                 style={{ width: '16px', height: '16px', cursor: 'pointer' }}
               />
               <span style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)' }}>
-                Record Local IP History
+                记录本地 IP 历史
               </span>
               <span
                 className="badge badge-emerald"
                 style={{ fontSize: '0.6875rem', padding: '1px 6px' }}
               >
-                100% On-Device
+                100% 本地存储
               </span>
             </label>
 
@@ -206,7 +206,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                   type="button"
                   className="btn btn-ghost"
                   onClick={handleExportCsv}
-                  title="Export history as CSV"
+                  title="导出历史为 CSV"
                   style={{ padding: '4px 8px', fontSize: '0.75rem' }}
                 >
                   <Download size={13} />
@@ -216,7 +216,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                   type="button"
                   className="btn btn-ghost"
                   onClick={handleExportJson}
-                  title="Export history as JSON"
+                  title="导出历史为 JSON"
                   style={{ padding: '4px 8px', fontSize: '0.75rem' }}
                 >
                   <Download size={13} />
@@ -226,11 +226,11 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                   type="button"
                   className="btn btn-ghost"
                   onClick={onClearHistory}
-                  title="Clear all IP history entries"
-                  style={{ padding: '4px 8px', fontSize: '0.75rem', color: '#fb7185' }}
+                  title="清空全部 IP 历史记录"
+                  style={{ padding: '4px 8px', fontSize: '0.75rem', color: 'var(--text-rose)' }}
                 >
                   <Trash2 size={13} />
-                  <span>Clear</span>
+                  <span>清空</span>
                 </button>
               </div>
             )}
@@ -246,7 +246,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                 textAlign: 'center',
                 padding: '2rem 1.5rem',
                 gap: '1rem',
-                background: 'rgba(255, 255, 255, 0.015)',
+                background: 'var(--bg-subtle)',
                 borderRadius: 'var(--radius-md)',
                 border: '1px dashed var(--border-subtle)',
               }}
@@ -274,7 +274,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                     marginBottom: '4px',
                   }}
                 >
-                  Track Public IP Changes Over Time
+                  追踪公网 IP 随时间的变化
                 </h4>
                 <p
                   style={{
@@ -284,8 +284,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                     lineHeight: '1.5',
                   }}
                 >
-                  Keep a timeline of when your public IP address or ISP changes (e.g. traveling,
-                  switching Wi-Fi, or toggling VPNs).
+                  记录你的公网 IP 地址或运营商何时发生变化（例如出差、切换 Wi-Fi 或开关 VPN 时）。
                 </p>
               </div>
 
@@ -300,7 +299,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
               >
                 <Shield size={14} color="var(--accent-emerald)" />
                 <span>
-                  Zero server telemetry. All records remain encrypted & local to your device.
+                  零服务器遥测。所有记录均加密保存在你的设备本地。
                 </span>
               </div>
 
@@ -313,7 +312,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                 }}
                 style={{ marginTop: '0.5rem' }}
               >
-                Enable IP History Tracking
+                启用 IP 历史追踪
               </button>
             </div>
           ) : history.length === 0 ? (
@@ -326,7 +325,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                 textAlign: 'center',
                 padding: '2.5rem 1.5rem',
                 gap: '0.75rem',
-                background: 'rgba(255, 255, 255, 0.015)',
+                background: 'var(--bg-subtle)',
                 borderRadius: 'var(--radius-md)',
                 border: '1px dashed var(--border-subtle)',
               }}
@@ -341,11 +340,10 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                     marginBottom: '4px',
                   }}
                 >
-                  Tracking Active — No Changes Recorded Yet
+                  追踪进行中——尚未记录到变化
                 </h4>
                 <p style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', maxWidth: '380px' }}>
-                  As your network connects or changes, snapshots will be automatically added here
-                  (capped at the 50 most recent).
+                  网络连接或发生变化时，快照会自动记录在这里（最多保留最近 50 条）。
                 </p>
               </div>
 
@@ -357,7 +355,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                   style={{
                     marginTop: '0.5rem',
                     fontSize: '0.8125rem',
-                    color: snapshotFeedback ? 'var(--accent-emerald, #34d399)' : undefined,
+                    color: snapshotFeedback ? 'var(--accent-emerald)' : undefined,
                   }}
                 >
                   {snapshotFeedback ? (
@@ -366,7 +364,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                       {snapshotFeedback}
                     </span>
                   ) : (
-                    'Record Current IP Snapshot'
+                    '记录当前 IP 快照'
                   )}
                 </button>
               )}
@@ -384,7 +382,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                   padding: '0 4px',
                 }}
               >
-                <span>Timeline Records ({history.length} / 50)</span>
+                <span>时间线记录（{history.length} / 50）</span>
                 {onRecordCurrentSnapshot && (
                   <button
                     type="button"
@@ -393,7 +391,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                       background: 'none',
                       border: 'none',
                       color: snapshotFeedback
-                        ? 'var(--accent-emerald, #34d399)'
+                        ? 'var(--accent-emerald)'
                         : 'var(--accent-cyan)',
                       fontSize: '0.75rem',
                       cursor: 'pointer',
@@ -411,7 +409,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                         <span>{snapshotFeedback}</span>
                       </>
                     ) : (
-                      <span>+ Record Snapshot Now</span>
+                      <span>+ 立即记录快照</span>
                     )}
                   </button>
                 )}
@@ -436,7 +434,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                       justifyContent: 'space-between',
                       padding: '0.875rem 1rem',
                       borderRadius: 'var(--radius-sm)',
-                      background: 'rgba(10, 16, 28, 0.65)',
+                      background: 'var(--bg-panel)',
                       border: '1px solid var(--border-subtle)',
                       gap: '12px',
                     }}
@@ -491,7 +489,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                               onClick={() =>
                                 entry.ipv4 && copyToClipboard(entry.ipv4, `ipv4-${entry.id}`)
                               }
-                              title="Copy IPv4"
+                              title="复制 IPv4"
                               style={{
                                 background: 'none',
                                 border: 'none',
@@ -501,7 +499,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                               }}
                             >
                               {copiedKey === `ipv4-${entry.id}` ? (
-                                <Check size={12} color="#34d399" />
+                                <Check size={12} color="var(--text-emerald)" />
                               ) : (
                                 <Copy size={12} />
                               )}
@@ -524,7 +522,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                               className="mono"
                               style={{
                                 fontSize: '0.75rem',
-                                color: '#a5b4fc',
+                                color: 'var(--text-indigo)',
                                 fontWeight: 500,
                                 maxWidth: '240px',
                                 overflow: 'hidden',
@@ -540,7 +538,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                               onClick={() =>
                                 entry.ipv6 && copyToClipboard(entry.ipv6, `ipv6-${entry.id}`)
                               }
-                              title="Copy IPv6"
+                              title="复制 IPv6"
                               style={{
                                 background: 'none',
                                 border: 'none',
@@ -550,7 +548,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                               }}
                             >
                               {copiedKey === `ipv6-${entry.id}` ? (
-                                <Check size={12} color="#34d399" />
+                                <Check size={12} color="var(--text-emerald)" />
                               ) : (
                                 <Copy size={12} />
                               )}
@@ -582,10 +580,10 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                       type="button"
                       className="btn btn-ghost btn-icon"
                       onClick={() => onDeleteEntry(entry.id)}
-                      title="Delete entry"
+                      title="删除该条记录"
                       style={{ padding: '4px' }}
                     >
-                      <Trash2 size={14} color="#fb7185" />
+                      <Trash2 size={14} color="var(--text-rose)" />
                     </button>
                   </div>
                 ))}

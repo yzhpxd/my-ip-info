@@ -41,25 +41,24 @@ export const WebRtcLeakCard: React.FC<WebRtcLeakCardProps> = ({
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Shield size={18} color="var(--accent-emerald)" />
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 700 }}>WebRTC & STUN Leak Inspector</h2>
+            <h2 style={{ fontSize: '1.25rem', fontWeight: 700 }}>WebRTC 与 STUN 泄漏检测</h2>
           </div>
           <p style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', marginTop: '2px' }}>
-            Interrogates browser WebRTC ICE candidates to detect local LAN interfaces and VPN
-            bypasses.
+            检查浏览器 WebRTC ICE 候选地址，以检测本地局域网接口与 VPN 绕过。
           </p>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
           {isVpnLeaked ? (
             <span className="badge badge-rose">
-              <ShieldAlert size={14} /> Potential VPN Bypass Detected
+              <ShieldAlert size={14} /> 检测到可能的 VPN 绕过
             </span>
           ) : leakResult.status === 'completed' ? (
             <span className="badge badge-emerald">
-              <ShieldCheck size={14} /> Diagnostic Complete
+              <ShieldCheck size={14} /> 诊断完成
             </span>
           ) : (
-            <span className="badge badge-cyan">Gathering ICE Candidates...</span>
+            <span className="badge badge-cyan">正在收集 ICE 候选地址…</span>
           )}
 
           <button
@@ -67,7 +66,7 @@ export const WebRtcLeakCard: React.FC<WebRtcLeakCardProps> = ({
             className="btn btn-ghost btn-icon"
             onClick={leakResult.reProbe}
             disabled={isProbing}
-            title="Re-run WebRTC STUN probe"
+            title="重新运行 WebRTC STUN 探测"
           >
             <RefreshCw size={14} className={isProbing ? 'spin-anim' : ''} />
           </button>
@@ -84,11 +83,11 @@ export const WebRtcLeakCard: React.FC<WebRtcLeakCardProps> = ({
                 alignItems: 'center',
                 gap: '5px',
                 borderRadius: 'var(--radius-full)',
-                background: 'rgba(255, 255, 255, 0.04)',
+                background: 'var(--bg-hover)',
                 border: '1px solid var(--border-subtle)',
               }}
             >
-              <span>{isExpanded ? 'Hide' : 'Details'}</span>
+              <span>{isExpanded ? '收起' : '详情'}</span>
               <ChevronDown
                 size={14}
                 style={{
@@ -104,7 +103,7 @@ export const WebRtcLeakCard: React.FC<WebRtcLeakCardProps> = ({
       {isExpanded &&
         (isUnsupported ? (
           <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>
-            WebRTC is not supported or is blocked by your browser settings / extensions.
+            你的浏览器不支持 WebRTC，或已被浏览器设置 / 扩展拦截。
           </p>
         ) : (
           <div
@@ -117,10 +116,10 @@ export const WebRtcLeakCard: React.FC<WebRtcLeakCardProps> = ({
             {/* Local Interface IPs (LAN) */}
             <div
               style={{
-                background: 'rgba(10, 16, 28, 0.6)',
+                background: 'var(--bg-panel)',
                 padding: '1.25rem',
                 borderRadius: 'var(--radius-md)',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
+                border: '1px solid var(--border-subtle)',
               }}
             >
               <div
@@ -139,7 +138,7 @@ export const WebRtcLeakCard: React.FC<WebRtcLeakCardProps> = ({
                     color: 'var(--text-secondary)',
                   }}
                 >
-                  LOCAL NETWORK CANDIDATES (LAN)
+                  本地网络候选地址（LAN）
                 </span>
               </div>
 
@@ -174,8 +173,8 @@ export const WebRtcLeakCard: React.FC<WebRtcLeakCardProps> = ({
               ) : (
                 <span style={{ fontSize: '0.8125rem', color: 'var(--text-muted)' }}>
                   {isProbing
-                    ? 'Probing interfaces...'
-                    : 'No local IP exposed (mDNS protected or hidden)'}
+                    ? '正在探测接口…'
+                    : '未暴露本地 IP（mDNS 已保护或隐藏）'}
                 </span>
               )}
             </div>
@@ -183,12 +182,12 @@ export const WebRtcLeakCard: React.FC<WebRtcLeakCardProps> = ({
             {/* Public STUN WAN IP */}
             <div
               style={{
-                background: 'rgba(10, 16, 28, 0.6)',
+                background: 'var(--bg-panel)',
                 padding: '1.25rem',
                 borderRadius: 'var(--radius-md)',
                 border: isVpnLeaked
                   ? '1px solid rgba(244, 63, 94, 0.4)'
-                  : '1px solid rgba(255, 255, 255, 0.06)',
+                  : '1px solid var(--border-subtle)',
               }}
             >
               <div
@@ -207,7 +206,7 @@ export const WebRtcLeakCard: React.FC<WebRtcLeakCardProps> = ({
                     color: 'var(--text-secondary)',
                   }}
                 >
-                  STUN REFLEXIVE CANDIDATE (WAN)
+                  STUN 反射候选地址（WAN）
                 </span>
               </div>
 
@@ -246,20 +245,20 @@ export const WebRtcLeakCard: React.FC<WebRtcLeakCardProps> = ({
                     <span
                       style={{
                         fontSize: '0.75rem',
-                        color: '#fb7185',
+                        color: 'var(--text-rose)',
                         display: 'block',
                         wordBreak: 'break-word',
                       }}
                     >
-                      ⚠️ STUN detected an IP different from your HTTP IP ({primaryIpv4})!
+                      ⚠️ STUN 检测到的 IP 与你的 HTTP IP（{primaryIpv4}）不同！
                     </span>
                   )}
                 </div>
               ) : (
                 <span style={{ fontSize: '0.8125rem', color: 'var(--text-muted)' }}>
                   {isProbing
-                    ? 'Contacting Google STUN server...'
-                    : 'No reflexive STUN candidate returned'}
+                    ? '正在连接 Google STUN 服务器…'
+                    : '未返回反射 STUN 候选地址'}
                 </span>
               )}
             </div>

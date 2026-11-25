@@ -1,40 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#090d16" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f4f6fb" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#090d16" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="My IP Info" />
+    <meta name="apple-mobile-web-app-title" content="我的 IP 信息" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="canonical" href="https://ip.ii2d.com/" />
 
     <!-- Primary Search Engine Metadata -->
-    <title>My IP Info | Multi-Source IP Intelligence & Network Diagnostic Hub</title>
-    <meta name="description" content="High-performance multi-source IP intelligence and network connectivity diagnostic suite. Cross-checks Cloudflare Edge, public APIs, and WebRTC STUN to detect VPN/proxy leaks and verify geolocation." />
-    <meta name="keywords" content="my ip, what is my ip, ip address lookup, ip intelligence, webrtc leak test, dns leak test, ipv4, ipv6, public ip, vpn leak test, ip geolocation, curl ifconfig, cloudflare worker" />
+    <title>我的 IP 信息 | 多源 IP 智能与网络诊断中心</title>
+    <meta name="description" content="高性能多源 IP 智能与网络连接诊断工具。交叉核对 Cloudflare 边缘节点、公共 API 与 WebRTC STUN，检测 VPN/代理泄漏并验证地理位置。" />
+    <meta name="keywords" content="我的ip, 查询ip, ip地址查询, ip智能, webrtc泄漏检测, dns泄漏检测, ipv4, ipv6, 公网ip, vpn泄漏检测, ip地理位置, curl ifconfig, cloudflare worker" />
     <meta name="author" content="ii2d" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="My IP Info" />
+    <meta property="og:site_name" content="我的 IP 信息" />
     <meta property="og:url" content="https://ip.ii2d.com/" />
-    <meta property="og:title" content="My IP Info | Multi-Source IP Intelligence & Network Diagnostic Hub" />
-    <meta property="og:description" content="Cross-check your public IP, geolocation databases, WebRTC STUN leaks, and DNS resolvers in real-time across edge servers and public APIs." />
+    <meta property="og:title" content="我的 IP 信息 | 多源 IP 智能与网络诊断中心" />
+    <meta property="og:description" content="实时交叉核对你的公网 IP、地理位置数据库、WebRTC STUN 泄漏与 DNS 解析器，覆盖边缘服务器与公共 API。" />
     <meta property="og:image" content="https://ip.ii2d.com/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="My IP Info preview card showing IP address, edge diagnostic badges, and network topology" />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:image:alt" content="我的 IP 信息预览卡，展示 IP 地址、边缘诊断徽章与网络拓扑" />
+    <meta property="og:locale" content="zh_CN" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://ip.ii2d.com/" />
-    <meta name="twitter:title" content="My IP Info | Multi-Source IP Intelligence & Network Diagnostic Hub" />
-    <meta name="twitter:description" content="Cross-check your public IP, geolocation databases, WebRTC STUN leaks, and DNS resolvers in real-time across edge servers and public APIs." />
+    <meta name="twitter:title" content="我的 IP 信息 | 多源 IP 智能与网络诊断中心" />
+    <meta name="twitter:description" content="实时交叉核对你的公网 IP、地理位置数据库、WebRTC STUN 泄漏与 DNS 解析器，覆盖边缘服务器与公共 API。" />
     <meta name="twitter:image" content="https://ip.ii2d.com/og-image.png" />
     <meta name="twitter:creator" content="@ii2d" />
 
@@ -46,12 +47,12 @@
         {
           "@type": "WebApplication",
           "@id": "https://ip.ii2d.com/#webapp",
-          "name": "My IP Info",
+          "name": "我的 IP 信息",
           "url": "https://ip.ii2d.com/",
-          "description": "High-performance multi-source IP intelligence and network connectivity diagnostic suite.",
+          "description": "高性能多源 IP 智能与网络连接诊断工具。",
           "applicationCategory": "DiagnosticTool",
           "operatingSystem": "All",
-          "browserRequirements": "Requires JavaScript and HTML5 support. WebRTC optional for leak diagnostics.",
+          "browserRequirements": "需要 JavaScript 与 HTML5 支持。WebRTC 为可选的泄漏诊断功能。",
           "offers": {
             "@type": "Offer",
             "price": "0",
@@ -63,13 +64,13 @@
             "url": "https://ip.ii2d.com"
           },
           "featureList": [
-            "Multi-source IP consensus cross-validation",
-            "Zero-latency Cloudflare Edge geolocation and ASN lookup",
-            "Dual-stack WebRTC STUN candidate leak inspection",
-            "Recursive DNS leak diagnostics",
-            "Interactive geolocation convergence map",
-            "Terminal CLI support for curl, wget, and httpie",
-            "On-device local connection history with zero server logging"
+            "多源 IP 共识交叉验证",
+            "零延迟 Cloudflare 边缘地理位置与 ASN 查询",
+            "双栈 WebRTC STUN 候选地址泄漏检测",
+            "递归 DNS 泄漏诊断",
+            "交互式地理位置聚合地图",
+            "支持 curl、wget 与 httpie 的终端 CLI",
+            "设备本地连接历史，服务器零日志"
           ]
         },
         {
@@ -78,42 +79,42 @@
           "mainEntity": [
             {
               "@type": "Question",
-              "name": "What is My IP Info?",
+              "name": "什么是我的 IP 信息？",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "My IP Info is a real-time network intelligence and connectivity diagnostic tool. Unlike single-source lookup sites, it cross-checks your public IP address and geolocation across Cloudflare edge nodes, multiple public APIs, and browser WebRTC STUN candidates."
+                "text": "我的 IP 信息是一款实时网络智能与连接诊断工具。与单一来源的查询网站不同，它会通过 Cloudflare 边缘节点、多个公共 API 以及浏览器 WebRTC STUN 候选地址，交叉核对你的公网 IP 地址与地理位置。"
               }
             },
             {
               "@type": "Question",
-              "name": "How does multi-source IP cross-checking detect VPN or proxy leaks?",
+              "name": "多源 IP 交叉核对如何检测 VPN 或代理泄漏？",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "When routing traffic through a VPN or proxy, certain browser subsystems or application sockets may bypass the encrypted tunnel. By simultaneously querying multiple independent external providers and WebRTC STUN servers, My IP Info highlights any discrepancy between reported IP addresses."
+                "text": "通过 VPN 或代理上网时，某些浏览器子系统或应用套接字可能会绕过加密隧道。通过同时查询多个独立的外部服务商与 WebRTC STUN 服务器，我的 IP 信息可以发现所报告 IP 地址之间的任何不一致。"
               }
             },
             {
               "@type": "Question",
-              "name": "What is a WebRTC leak?",
+              "name": "什么是 WebRTC 泄漏？",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "A WebRTC leak occurs when a browser's Real-Time Communication engine exposes your true local or public IP address via Interactive Connectivity Establishment (ICE) STUN queries, bypassing active VPN tunnels or HTTP proxies. My IP Info tests client STUN candidates directly in your browser to flag exposed interfaces."
+                "text": "当浏览器的实时通信引擎通过交互式连接建立（ICE）STUN 查询暴露你真实的本地或公网 IP 地址，从而绕过正在使用的 VPN 隧道或 HTTP 代理时，就会发生 WebRTC 泄漏。我的 IP 信息直接在你的浏览器中检测客户端 STUN 候选地址，以标记暴露的接口。"
               }
             },
             {
               "@type": "Question",
-              "name": "How can I check my IP address from the terminal using curl?",
+              "name": "如何用 curl 在终端中查询我的 IP 地址？",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Run 'curl -sL https://my-ip-info.ii2d-dev.workers.dev' or 'curl https://my-ip-info.ii2d-dev.workers.dev/ip' in your terminal to receive your plain public IP address with a trailing newline. For structured JSON or YAML output, use 'curl https://my-ip-info.ii2d-dev.workers.dev/api/v1/info?format=json' or '?format=yaml'."
+                "text": "在终端中运行 'curl -sL https://my-ip-info.ii2d-dev.workers.dev' 或 'curl https://my-ip-info.ii2d-dev.workers.dev/ip'，即可收到带换行符的纯文本公网 IP 地址。如需结构化的 JSON 或 YAML 输出，请使用 'curl https://my-ip-info.ii2d-dev.workers.dev/api/v1/info?format=json' 或 '?format=yaml'。"
               }
             },
             {
               "@type": "Question",
-              "name": "Is my IP address or network diagnostic data logged?",
+              "name": "我的 IP 地址或网络诊断数据会被记录吗？",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "No. My IP Info maintains a strict zero-logging and zero-caching policy. Edge API endpoints send no-store headers, and all connection history is saved strictly within your browser's local storage."
+                "text": "不会。我的 IP 信息实行严格的零日志、零缓存政策。边缘 API 端点会发送 no-store 响应头，所有连接历史仅保存在你浏览器的本地存储中。"
               }
             }
           ]
@@ -186,29 +187,76 @@
       #root-fallback a:hover {
         text-decoration: underline;
       }
+      .noscript-banner {
+        background: #090d16;
+        color: #f1f5f9;
+        padding: 2rem;
+        text-align: center;
+        font-family: sans-serif;
+      }
+      .noscript-banner a {
+        color: #38bdf8;
+      }
+      @media (prefers-color-scheme: light) {
+        .noscript-banner {
+          background: #f4f6fb;
+          color: #0f172a;
+        }
+        .noscript-banner a {
+          color: #0369a1;
+        }
+      }
+      @media (prefers-color-scheme: light) {
+        #root-fallback {
+          background: #f4f6fb;
+          color: #0f172a;
+        }
+        #root-fallback .subtitle {
+          color: #475569;
+        }
+        #root-fallback .card {
+          background: rgba(255, 255, 255, 0.85);
+          border: 1px solid rgba(15, 23, 42, 0.1);
+        }
+        #root-fallback h2 {
+          color: #0f172a;
+        }
+        #root-fallback code {
+          background: rgba(15, 23, 42, 0.06);
+          color: #0369a1;
+        }
+        #root-fallback pre {
+          background: rgba(15, 23, 42, 0.05);
+        }
+        #root-fallback ul {
+          color: #334155;
+        }
+        #root-fallback a {
+          color: #0369a1;
+        }
+      }
     </style>
   </head>
   <body>
     <div id="root">
       <div id="root-fallback">
         <header>
-          <h1>My IP Info</h1>
-          <p class="subtitle">Multi-source IP intelligence and network connectivity diagnostic suite.</p>
+          <h1>我的 IP 信息</h1>
+          <p class="subtitle">多源 IP 智能与网络连接诊断工具。</p>
         </header>
 
         <main>
           <section class="card">
-            <h2>Multi-Source IP Cross-Validation</h2>
+            <h2>多源 IP 交叉验证</h2>
             <p>
-              Most IP lookup utilities query a single server. My IP Info cross-validates client IP and network telemetry across
-              Cloudflare Edge, public IP providers (ipify, ipwho.is, IP.SB, ip.guide, SeeIP, icanhazip, IPIP.net), and browser
-              WebRTC STUN candidates to diagnose VPN/proxy bypasses, detect coordinate variance across geolocation databases, and measure round-trip latency.
+              大多数 IP 查询工具只查询单一服务器。我的 IP 信息会通过 Cloudflare 边缘节点、公共 IP 服务商（ipify、ipwho.is、IP.SB、ip.guide、SeeIP、icanhazip、IPIP.net）以及浏览器
+              WebRTC STUN 候选地址，交叉验证客户端 IP 与网络数据，以诊断 VPN/代理绕过、发现各地理位置数据库之间的坐标差异，并测量往返延迟。
             </p>
           </section>
 
           <section class="card">
-            <h2>Fast CLI Terminal Access</h2>
-            <p>Query your IP directly from your terminal with curl or wget:</p>
+            <h2>快捷 CLI 终端访问</h2>
+            <p>直接在终端中使用 curl 或 wget 查询你的 IP：</p>
             <pre><code># Plain public IP
 curl -sL https://my-ip-info.ii2d-dev.workers.dev
 
@@ -220,32 +268,32 @@ curl -sL https://my-ip-info.ii2d-dev.workers.dev/api/v1/info?format=yaml</code><
           </section>
 
           <section class="card">
-            <h2>Comprehensive Diagnostics</h2>
+            <h2>全面诊断</h2>
             <ul>
-              <li><strong>Zero-Latency Edge Geolocation:</strong> Extracts city, region, coordinates, and ASN directly from TLS connection headers.</li>
-              <li><strong>WebRTC STUN Leak Detection:</strong> Interrogates browser ICE candidates to detect unencrypted IP leaks across VPNs.</li>
-              <li><strong>DNS Leak Inspection:</strong> Resolves unique nonce queries to uncover upstream recursive DNS resolvers.</li>
-              <li><strong>Privacy Focused:</strong> Zero server-side IP logging and 100% on-device local storage history.</li>
+              <li><strong>零延迟边缘地理位置：</strong>直接从 TLS 连接头中提取城市、地区、坐标与 ASN。</li>
+              <li><strong>WebRTC STUN 泄漏检测：</strong>检查浏览器 ICE 候选地址，检测跨 VPN 的未加密 IP 泄漏。</li>
+              <li><strong>DNS 泄漏检测：</strong>解析唯一随机子域名查询，揭示上游递归 DNS 解析器。</li>
+              <li><strong>注重隐私：</strong>服务器端零 IP 日志，历史记录 100% 保存在设备本地。</li>
             </ul>
           </section>
 
           <section class="card">
-            <h2>AI & Agent Documentation</h2>
+            <h2>AI 与 Agent 文档</h2>
             <p>
-              Machine-readable specifications for LLMs, search engines, and automated agents are available at:
+              面向 LLM、搜索引擎与自动化 Agent 的机器可读规范见：
             </p>
             <ul>
-              <li><a href="/llms.txt">/llms.txt</a> — Summary overview adhering to the llmstxt.org standard</li>
-              <li><a href="/llms-full.txt">/llms-full.txt</a> — Full technical specification, schemas, and error codes</li>
-              <li><a href="/sitemap.xml">/sitemap.xml</a> — XML Sitemap for crawler indexation</li>
+              <li><a href="/llms.txt">/llms.txt</a> — 遵循 llmstxt.org 标准的摘要总览</li>
+              <li><a href="/llms-full.txt">/llms-full.txt</a> — 完整技术规范、数据结构与错误码</li>
+              <li><a href="/sitemap.xml">/sitemap.xml</a> — 供爬虫索引的 XML 网站地图</li>
             </ul>
           </section>
         </main>
       </div>
     </div>
     <noscript>
-      <div style="background: #090d16; color: #f1f5f9; padding: 2rem; text-align: center; font-family: sans-serif;">
-        <p>JavaScript is disabled in your browser. You can still use our CLI endpoint via <code>curl https://ip.ii2d.com</code> or view machine-readable docs at <a href="/llms.txt" style="color: #38bdf8;">/llms.txt</a>.</p>
+      <div class="noscript-banner">
+        <p>你的浏览器已禁用 JavaScript。你仍可通过 <code>curl https://ip.ii2d.com</code> 使用 CLI 端点，或在 <a href="/llms.txt">/llms.txt</a> 查看机器可读文档。</p>
       </div>
     </noscript>
     <script type="module" src="/src/client/main.tsx"></script>

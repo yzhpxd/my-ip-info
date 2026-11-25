@@ -33,7 +33,7 @@ export function useMultiSourceIp(providers: IpProvider[]) {
       parentSignal.addEventListener('abort', onParentAbort);
 
       const timeoutTimer = setTimeout(() => {
-        providerController.abort(new Error('Request timed out (7s)'));
+        providerController.abort(new Error('请求超时（7 秒）'));
       }, PROVIDER_TIMEOUT_MS);
 
       try {
@@ -70,9 +70,9 @@ export function useMultiSourceIp(providers: IpProvider[]) {
         if (signalAbortedCheck()) return;
 
         const latencyMs = Math.round(performance.now() - startTime);
-        let errorMessage = err instanceof Error ? err.message : 'Request failed';
+        let errorMessage = err instanceof Error ? err.message : '请求失败';
         if (errorMessage === 'Failed to fetch' || errorMessage.includes('NetworkError')) {
-          errorMessage = 'Network connection failed / Blocked';
+          errorMessage = '网络连接失败 / 被拦截';
         }
 
         setResults((prev) => ({

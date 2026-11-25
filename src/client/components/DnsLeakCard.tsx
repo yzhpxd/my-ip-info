@@ -44,28 +44,28 @@ export const DnsLeakCard: React.FC<DnsLeakCardProps> = ({
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Radio size={18} color="var(--accent-cyan)" />
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 700 }}>DNS Resolver & Leak Inspector</h2>
+            <h2 style={{ fontSize: '1.25rem', fontWeight: 700 }}>DNS 解析器与泄漏检测</h2>
           </div>
           <p style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', marginTop: '2px' }}>
-            Resolves non-cached subdomains to detect if DNS queries bypass your proxy or VPN.
+            通过解析未缓存的子域名，检测 DNS 查询是否绕过了你的代理或 VPN。
           </p>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
           {isTesting ? (
-            <span className="badge badge-cyan">Probing DNS Resolvers...</span>
+            <span className="badge badge-cyan">正在探测 DNS 解析器…</span>
           ) : isError ? (
-            <span className="badge badge-rose">Probe Error</span>
+            <span className="badge badge-rose">探测出错</span>
           ) : dnsResult.isLeaking ? (
             <span className="badge badge-rose">
-              <ShieldAlert size={14} /> Potential DNS Leak
+              <ShieldAlert size={14} /> 可能存在 DNS 泄漏
             </span>
           ) : hasDnsServers ? (
             <span className="badge badge-emerald">
-              <ShieldCheck size={14} /> DNS Resolvers Clean
+              <ShieldCheck size={14} /> DNS 解析器正常
             </span>
           ) : (
-            <span className="badge badge-slate">Ready</span>
+            <span className="badge badge-slate">就绪</span>
           )}
 
           <button
@@ -73,7 +73,7 @@ export const DnsLeakCard: React.FC<DnsLeakCardProps> = ({
             className="btn btn-ghost btn-icon"
             onClick={dnsResult.reTest}
             disabled={isTesting}
-            title="Re-test DNS leak status"
+            title="重新检测 DNS 泄漏状态"
           >
             <RefreshCw size={14} className={isTesting ? 'spin-anim' : ''} />
           </button>
@@ -90,11 +90,11 @@ export const DnsLeakCard: React.FC<DnsLeakCardProps> = ({
                 alignItems: 'center',
                 gap: '5px',
                 borderRadius: 'var(--radius-full)',
-                background: 'rgba(255, 255, 255, 0.04)',
+                background: 'var(--bg-hover)',
                 border: '1px solid var(--border-subtle)',
               }}
             >
-              <span>{isExpanded ? 'Hide' : 'Details'}</span>
+              <span>{isExpanded ? '收起' : '详情'}</span>
               <ChevronDown
                 size={14}
                 style={{
@@ -123,10 +123,10 @@ export const DnsLeakCard: React.FC<DnsLeakCardProps> = ({
           >
             <span style={{ color: 'var(--accent-rose)', fontSize: '0.875rem' }}>
               {dnsResult.errorMessage ||
-                'Unable to contact DNS probe authority. Check your connection.'}
+                '无法连接 DNS 探测服务，请检查网络连接。'}
             </span>
             <button type="button" className="btn btn-secondary btn-sm" onClick={dnsResult.reTest}>
-              Retry
+              重试
             </button>
           </div>
         ) : (
@@ -140,10 +140,10 @@ export const DnsLeakCard: React.FC<DnsLeakCardProps> = ({
             {/* Detected Upstream DNS Resolvers */}
             <div
               style={{
-                background: 'rgba(10, 16, 28, 0.6)',
+                background: 'var(--bg-panel)',
                 padding: '1.25rem',
                 borderRadius: 'var(--radius-md)',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
+                border: '1px solid var(--border-subtle)',
               }}
             >
               <div
@@ -162,7 +162,7 @@ export const DnsLeakCard: React.FC<DnsLeakCardProps> = ({
                     color: 'var(--text-secondary)',
                   }}
                 >
-                  UPSTREAM DNS RESOLVERS ({dnsResult.dnsServers.length})
+                  上游 DNS 解析器（{dnsResult.dnsServers.length} 个）
                 </span>
               </div>
 
@@ -176,9 +176,9 @@ export const DnsLeakCard: React.FC<DnsLeakCardProps> = ({
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         padding: '8px 12px',
-                        background: 'rgba(255, 255, 255, 0.02)',
+                        background: 'var(--bg-subtle)',
                         borderRadius: 'var(--radius-sm)',
-                        border: '1px solid rgba(255, 255, 255, 0.04)',
+                        border: '1px solid var(--border-subtle)',
                         flexWrap: 'wrap',
                         gap: '8px',
                         minWidth: 0,
@@ -246,11 +246,11 @@ export const DnsLeakCard: React.FC<DnsLeakCardProps> = ({
                   }}
                 >
                   <RefreshCw size={14} className="spin-anim" />
-                  <span>Sending 10 parallel nonce queries...</span>
+                  <span>正在并行发送 10 个随机子域名查询…</span>
                 </div>
               ) : (
                 <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>
-                  No active DNS servers detected yet.
+                  尚未检测到活动的 DNS 服务器。
                 </p>
               )}
             </div>
@@ -258,10 +258,10 @@ export const DnsLeakCard: React.FC<DnsLeakCardProps> = ({
             {/* Diagnostic Conclusion & Summary */}
             <div
               style={{
-                background: 'rgba(10, 16, 28, 0.6)',
+                background: 'var(--bg-panel)',
                 padding: '1.25rem',
                 borderRadius: 'var(--radius-md)',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
+                border: '1px solid var(--border-subtle)',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
@@ -284,7 +284,7 @@ export const DnsLeakCard: React.FC<DnsLeakCardProps> = ({
                       color: 'var(--text-secondary)',
                     }}
                   >
-                    RESOLVER LEAK ASSESSMENT
+                    解析器泄漏评估
                   </span>
                 </div>
 
@@ -297,18 +297,15 @@ export const DnsLeakCard: React.FC<DnsLeakCardProps> = ({
                 >
                   {dnsResult.isLeaking ? (
                     <p>
-                      <strong>Warning:</strong> Your DNS queries appear to be resolving through
-                      servers located outside your proxy exit path or with divergent providers. Your
-                      real network provider or location may be visible.
+                      <strong>警告：</strong>你的 DNS 查询似乎通过了代理出口路径之外的服务器解析，或解析服务商不一致。你的真实网络服务商或位置可能已被暴露。
                     </p>
                   ) : hasDnsServers ? (
                     <p>
-                      <strong>Clean:</strong> Your DNS requests are handled by consistent upstream
-                      resolvers without exposing private local network interfaces.
+                      <strong>正常：</strong>你的 DNS 请求由一致的上游解析器处理，未暴露私有本地网络接口。
                     </p>
                   ) : (
                     <p style={{ color: 'var(--text-muted)' }}>
-                      Awaiting probe results to assess DNS resolver consistency.
+                      等待探测结果以评估 DNS 解析器一致性。
                     </p>
                   )}
                 </div>
@@ -318,13 +315,12 @@ export const DnsLeakCard: React.FC<DnsLeakCardProps> = ({
                 style={{
                   marginTop: '1rem',
                   paddingTop: '0.75rem',
-                  borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+                  borderTop: '1px solid var(--border-subtle)',
                   fontSize: '0.75rem',
                   color: 'var(--text-muted)',
                 }}
               >
-                Probes utilize one-time random subdomains to bypass recursive DNS caches and capture
-                your system's true upstream resolver.
+                探测使用一次性随机子域名以绕过递归 DNS 缓存，捕获你系统真实的上游解析器。
               </div>
             </div>
           </div>

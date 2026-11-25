@@ -70,15 +70,15 @@ export const HeroCard: React.FC<HeroCardProps> = ({
           <span className="pulse-dot" />
           <span style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-secondary)' }}>
             {isInitialLoading && !ipv4 && !ipv6
-              ? 'Querying Network Interfaces...'
-              : 'Network Status: Active'}
+              ? '正在查询网络接口…'
+              : '网络状态：正常'}
           </span>
           {isRefreshing && !isInitialLoading && (
             <span
               className="badge badge-cyan"
               style={{ fontSize: '0.6875rem', padding: '1px 7px' }}
             >
-              Background Syncing...
+              后台同步中…
             </span>
           )}
           {lastRefreshedAt && !isInitialLoading && (
@@ -90,7 +90,7 @@ export const HeroCard: React.FC<HeroCardProps> = ({
                 fontSize: '0.75rem',
                 color: 'var(--text-muted)',
               }}
-              title={`Last checked at ${lastRefreshedAt.toLocaleString()}`}
+              title={`上次检测于 ${lastRefreshedAt.toLocaleString()}`}
             >
               <Clock size={12} />
               <span>{lastRefreshedAt.toLocaleTimeString()}</span>
@@ -140,9 +140,9 @@ export const HeroCard: React.FC<HeroCardProps> = ({
       {/* Unified IP Section (IPv4 & IPv6 combined to save space) */}
       <div
         style={{
-          background: 'rgba(10, 16, 28, 0.7)',
+          background: 'var(--bg-panel-strong)',
           borderRadius: 'var(--radius-md)',
-          border: '1px solid rgba(255, 255, 255, 0.07)',
+          border: '1px solid var(--border-subtle)',
           padding: '0.875rem 1.25rem',
           display: 'flex',
           flexDirection: 'column',
@@ -182,7 +182,7 @@ export const HeroCard: React.FC<HeroCardProps> = ({
                 className="mono hero-ip-v4"
                 style={{ fontSize: 'clamp(1.05rem, 2.5vw, 1.25rem)', fontWeight: 700 }}
               >
-                {ipv4 || 'Not Detected'}
+                {ipv4 || '未检测到'}
               </span>
             )}
           </div>
@@ -192,16 +192,16 @@ export const HeroCard: React.FC<HeroCardProps> = ({
               type="button"
               className="btn btn-ghost btn-icon"
               onClick={() => copyToClipboard(ipv4, 'ipv4')}
-              title="Copy IPv4"
+              title="复制 IPv4"
               style={{ width: '28px', height: '28px', padding: 0 }}
             >
-              {copiedKey === 'ipv4' ? <Check size={15} color="#34d399" /> : <Copy size={15} />}
+              {copiedKey === 'ipv4' ? <Check size={15} color="var(--text-emerald)" /> : <Copy size={15} />}
             </button>
           )}
         </div>
 
         {/* Divider */}
-        <div style={{ height: '1px', background: 'rgba(255, 255, 255, 0.04)' }} />
+        <div style={{ height: '1px', background: 'var(--border-subtle)' }} />
 
         {/* IPv6 Row */}
         <div
@@ -240,7 +240,7 @@ export const HeroCard: React.FC<HeroCardProps> = ({
                   wordBreak: 'break-all',
                 }}
               >
-                {ipv6 || 'No IPv6 Connectivity'}
+                {ipv6 || '无 IPv6 连接'}
               </span>
             )}
           </div>
@@ -250,10 +250,10 @@ export const HeroCard: React.FC<HeroCardProps> = ({
               type="button"
               className="btn btn-ghost btn-icon"
               onClick={() => copyToClipboard(ipv6, 'ipv6')}
-              title="Copy IPv6"
+              title="复制 IPv6"
               style={{ width: '28px', height: '28px', padding: 0 }}
             >
-              {copiedKey === 'ipv6' ? <Check size={15} color="#34d399" /> : <Copy size={15} />}
+              {copiedKey === 'ipv6' ? <Check size={15} color="var(--text-emerald)" /> : <Copy size={15} />}
             </button>
           )}
         </div>
@@ -286,7 +286,7 @@ export const HeroCard: React.FC<HeroCardProps> = ({
                 type="button"
                 className="badge badge-rose"
                 onClick={onViewWebRtc}
-                title="Potential WebRTC Leak - Click to view diagnostic"
+                title="可能存在 WebRTC 泄漏 - 点击查看诊断"
                 style={{
                   fontSize: '0.6875rem',
                   padding: '2px 7px',
@@ -298,14 +298,14 @@ export const HeroCard: React.FC<HeroCardProps> = ({
                 }}
               >
                 <ShieldAlert size={11} style={{ marginRight: '3px' }} />
-                WebRTC Leak
+                WebRTC 泄漏
               </button>
             ) : (
               <button
                 type="button"
                 className="badge badge-emerald"
                 onClick={onViewWebRtc}
-                title="WebRTC Protected - Click to view diagnostic"
+                title="WebRTC 已保护 - 点击查看诊断"
                 style={{
                   fontSize: '0.6875rem',
                   padding: '2px 7px',
@@ -317,7 +317,7 @@ export const HeroCard: React.FC<HeroCardProps> = ({
                 }}
               >
                 <ShieldCheck size={11} style={{ marginRight: '3px' }} />
-                WebRTC Safe
+                WebRTC 安全
               </button>
             )}
 
@@ -326,7 +326,7 @@ export const HeroCard: React.FC<HeroCardProps> = ({
                 type="button"
                 className="badge badge-cyan"
                 onClick={onViewDns}
-                title="Testing DNS Resolvers - Click to view diagnostic"
+                title="正在检测 DNS 解析器 - 点击查看诊断"
                 style={{
                   fontSize: '0.6875rem',
                   padding: '2px 7px',
@@ -337,14 +337,14 @@ export const HeroCard: React.FC<HeroCardProps> = ({
                   alignItems: 'center',
                 }}
               >
-                DNS Testing
+                DNS 检测中
               </button>
             ) : securityStatus.isDnsLeaked ? (
               <button
                 type="button"
                 className="badge badge-rose"
                 onClick={onViewDns}
-                title="Potential DNS Leak - Click to view diagnostic"
+                title="可能存在 DNS 泄漏 - 点击查看诊断"
                 style={{
                   fontSize: '0.6875rem',
                   padding: '2px 7px',
@@ -356,14 +356,14 @@ export const HeroCard: React.FC<HeroCardProps> = ({
                 }}
               >
                 <ShieldAlert size={11} style={{ marginRight: '3px' }} />
-                DNS Leak
+                DNS 泄漏
               </button>
             ) : (
               <button
                 type="button"
                 className="badge badge-emerald"
                 onClick={onViewDns}
-                title="DNS Protected - Click to view diagnostic"
+                title="DNS 已保护 - 点击查看诊断"
                 style={{
                   fontSize: '0.6875rem',
                   padding: '2px 7px',
@@ -375,7 +375,7 @@ export const HeroCard: React.FC<HeroCardProps> = ({
                 }}
               >
                 <ShieldCheck size={11} style={{ marginRight: '3px' }} />
-                DNS Safe
+                DNS 安全
               </button>
             )}
           </div>
@@ -396,7 +396,7 @@ export const HeroCard: React.FC<HeroCardProps> = ({
                 whiteSpace: 'nowrap',
               }}
             >
-              <span>Details</span>
+              <span>详情</span>
               <ChevronRight size={13} />
             </button>
           )}

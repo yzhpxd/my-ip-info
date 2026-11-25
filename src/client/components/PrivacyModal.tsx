@@ -19,13 +19,13 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) =
         <div className="modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Shield size={18} color="var(--accent-primary)" />
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 700 }}>Privacy & Data Handling Policy</h3>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 700 }}>隐私与数据处理政策</h3>
           </div>
           <button
             type="button"
             className="btn btn-ghost btn-icon"
             onClick={onClose}
-            title="Close modal"
+            title="关闭弹窗"
           >
             <X size={18} />
           </button>
@@ -41,14 +41,13 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) =
               borderRadius: 'var(--radius-sm)',
               background: 'rgba(56, 189, 248, 0.08)',
               border: '1px solid rgba(56, 189, 248, 0.25)',
-              color: '#38bdf8',
+              color: 'var(--text-cyan)',
               fontSize: '0.875rem',
             }}
           >
             <ShieldCheck size={20} style={{ flexShrink: 0 }} />
             <div>
-              <strong>Strict Zero-Log Policy:</strong> Your IP address, geolocation, and request
-              data are never stored, logged, or monetized.
+              <strong>严格零日志政策：</strong>你的 IP 地址、地理位置与请求数据绝不会被存储、记录或用于盈利。
             </div>
           </div>
 
@@ -56,7 +55,7 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) =
             {/* Section 1: In-Memory Processing */}
             <div
               style={{
-                background: 'rgba(255, 255, 255, 0.02)',
+                background: 'var(--bg-subtle)',
                 padding: '1rem',
                 borderRadius: 'var(--radius-sm)',
                 border: '1px solid var(--border-subtle)',
@@ -74,7 +73,7 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) =
                 }}
               >
                 <Database size={16} color="var(--accent-emerald)" />
-                <span>Zero Persistent Logging</span>
+                <span>零持久化日志</span>
               </div>
               <p
                 style={{
@@ -84,17 +83,15 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) =
                   margin: 0,
                 }}
               >
-                Requests to our edge API endpoints (such as <code className="mono">/api/v1/ip</code>{' '}
-                and <code className="mono">/api/v1/info</code>) are processed ephemerally in edge
-                worker memory. No database, server log, or tracking store persists your IP address
-                or request metadata.
+                对边缘 API 端点（如 <code className="mono">/api/v1/ip</code>{' '}
+                和 <code className="mono">/api/v1/info</code>）的请求仅在边缘 Worker 内存中临时处理，不会将你的 IP 地址或请求元数据保存到任何数据库、服务器日志或追踪存储中。
               </p>
             </div>
 
             {/* Section 2: Client-Side Multi-Source Queries */}
             <div
               style={{
-                background: 'rgba(255, 255, 255, 0.02)',
+                background: 'var(--bg-subtle)',
                 padding: '1rem',
                 borderRadius: 'var(--radius-sm)',
                 border: '1px solid var(--border-subtle)',
@@ -111,8 +108,8 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) =
                   marginBottom: '0.375rem',
                 }}
               >
-                <Globe size={16} color="#38bdf8" />
-                <span>Direct Client-Side Multi-Source Requests</span>
+                <Globe size={16} color="var(--text-cyan)" />
+                <span>客户端直连多源请求</span>
               </div>
               <p
                 style={{
@@ -122,16 +119,14 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) =
                   margin: 0,
                 }}
               >
-                Diagnostic queries across secondary providers (Cloudflare Trace, ipify, etc.) and
-                your configured custom endpoints are initiated directly from your browser via HTTPS.
-                They never pass through an intermediary proxy server.
+                对备用服务商（Cloudflare Trace、ipify 等）与你配置的自定义节点的诊断查询均由你的浏览器直接通过 HTTPS 发起，不经过任何中间代理服务器。
               </p>
             </div>
 
             {/* Section 3: WebRTC STUN Leaks */}
             <div
               style={{
-                background: 'rgba(255, 255, 255, 0.02)',
+                background: 'var(--bg-subtle)',
                 padding: '1rem',
                 borderRadius: 'var(--radius-sm)',
                 border: '1px solid var(--border-subtle)',
@@ -148,8 +143,8 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) =
                   marginBottom: '0.375rem',
                 }}
               >
-                <Radio size={16} color="#f59e0b" />
-                <span>WebRTC STUN Leak Diagnostics</span>
+                <Radio size={16} color="var(--accent-amber)" />
+                <span>WebRTC STUN 泄漏诊断</span>
               </div>
               <p
                 style={{
@@ -159,17 +154,14 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) =
                   margin: 0,
                 }}
               >
-                The WebRTC leak test creates an isolated, local WebRTC peer connection that sends
-                standard STUN requests to Google and Cloudflare STUN servers solely to reflect your
-                reflexive candidate IP. No media, audio, or video streams are ever created or
-                transmitted.
+                WebRTC 泄漏检测会创建一个隔离的本地 WebRTC 对等连接，仅向 Google 与 Cloudflare 的 STUN 服务器发送标准 STUN 请求，以反射你的候选 IP。整个过程不会创建或传输任何媒体、音频或视频流。
               </p>
             </div>
 
             {/* Section 4: Cookies & Analytics */}
             <div
               style={{
-                background: 'rgba(255, 255, 255, 0.02)',
+                background: 'var(--bg-subtle)',
                 padding: '1rem',
                 borderRadius: 'var(--radius-sm)',
                 border: '1px solid var(--border-subtle)',
@@ -186,8 +178,8 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) =
                   marginBottom: '0.375rem',
                 }}
               >
-                <EyeOff size={16} color="#a855f7" />
-                <span>No Cookies, Trackers, or Advertising</span>
+                <EyeOff size={16} color="var(--accent-purple)" />
+                <span>无 Cookie、无追踪器、无广告</span>
               </div>
               <p
                 style={{
@@ -197,19 +189,14 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) =
                   margin: 0,
                 }}
               >
-                This application does not set advertising or tracking cookies, nor does it embed
-                third-party tracking SDKs (like Google Analytics, Facebook Pixel, etc.). Your local
-                browser storage (<code className="mono">localStorage</code>) is used strictly to
-                save your preferences, custom endpoint list, backend overrides, and opt-in local IP
-                connection history (disabled by default, stored 100% on your device, and never
-                transmitted to any server).
+                本应用不设置广告或追踪 Cookie，也不嵌入任何第三方追踪 SDK（如 Google Analytics、Facebook Pixel 等）。你的本地浏览器存储（<code className="mono">localStorage</code>）仅用于保存偏好设置、自定义节点列表、后端地址覆盖与可选的本地 IP 连接历史（默认关闭，100% 保存在你的设备上，绝不会发送到任何服务器）。
               </p>
             </div>
 
             {/* Section 5: Open Source Transparency */}
             <div
               style={{
-                background: 'rgba(255, 255, 255, 0.02)',
+                background: 'var(--bg-subtle)',
                 padding: '1rem',
                 borderRadius: 'var(--radius-sm)',
                 border: '1px solid var(--border-subtle)',
@@ -227,7 +214,7 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) =
                 }}
               >
                 <CheckCircle2 size={16} color="var(--accent-emerald)" />
-                <span>Open Source & Publicly Auditable</span>
+                <span>开源且可公开审计</span>
               </div>
               <p
                 style={{
@@ -237,8 +224,7 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) =
                   margin: 0,
                 }}
               >
-                All source code for the client application, Cloudflare Workers backend, and Node.js
-                runtime is publicly auditable on GitHub under the MIT License.
+                客户端应用、Cloudflare Workers 后端与 Node.js 运行时的全部源代码均已在 GitHub 上以 MIT 许可证公开，可供审计。
               </p>
             </div>
           </div>
@@ -251,7 +237,7 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) =
             }}
           >
             <button type="button" className="btn btn-primary" onClick={onClose}>
-              Got It
+              知道了
             </button>
           </div>
         </div>

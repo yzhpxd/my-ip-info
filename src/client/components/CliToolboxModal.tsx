@@ -27,42 +27,42 @@ export const CliToolboxModal: React.FC<CliToolboxModalProps> = ({
   const commands = [
     {
       id: 'curl-ip',
-      label: 'Get Plaintext IP (cURL)',
+      label: '获取纯文本 IP（cURL）',
       cmd: `curl -s ${baseEndpoint}/api/v1/ip`,
     },
     {
       id: 'curl-v4',
-      label: 'Force IPv4 Only',
+      label: '仅强制 IPv4',
       cmd: `curl -4 -s ${baseEndpoint}/api/v1/ip`,
     },
     {
       id: 'curl-v6',
-      label: 'Force IPv6 Only',
+      label: '仅强制 IPv6',
       cmd: `curl -6 -s ${baseEndpoint}/api/v1/ip`,
     },
     {
       id: 'curl-info',
-      label: 'Full Terminal Diagnostics (cURL)',
+      label: '完整终端诊断（cURL）',
       cmd: `curl -s ${baseEndpoint}/api/v1/info`,
     },
     {
       id: 'curl-json',
-      label: 'Full JSON Intelligence (formatted with jq)',
+      label: '完整 JSON 诊断信息（用 jq 格式化）',
       cmd: `curl -s -H "Accept: application/json" ${baseEndpoint}/api/v1/info | jq .`,
     },
     {
       id: 'curl-geo',
-      label: 'Geolocation & ASN Only',
+      label: '仅地理位置与 ASN',
       cmd: `curl -s ${baseEndpoint}/api/v1/geo | jq .`,
     },
     {
       id: 'curl-yaml',
-      label: 'YAML Intelligence',
+      label: 'YAML 诊断信息',
       cmd: `curl -s ${baseEndpoint}/api/v1/yaml`,
     },
     {
       id: 'powershell',
-      label: 'PowerShell (Windows)',
+      label: 'PowerShell（Windows）',
       cmd: `(Invoke-RestMethod -Uri "${baseEndpoint}/api/v1/info").ip`,
     },
   ];
@@ -79,7 +79,7 @@ export const CliToolboxModal: React.FC<CliToolboxModalProps> = ({
         <div className="modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Terminal size={18} color="var(--accent-cyan)" />
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 700 }}>CLI & Developer Toolbox</h3>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 700 }}>CLI 与开发者工具箱</h3>
           </div>
           <button type="button" className="btn btn-ghost btn-icon" onClick={onClose}>
             <X size={18} />
@@ -88,8 +88,7 @@ export const CliToolboxModal: React.FC<CliToolboxModalProps> = ({
 
         <div className="modal-body">
           <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
-            Query your deployed endpoints directly from your command line, CI/CD pipelines, or
-            scripts.
+            直接从命令行、CI/CD 流水线或脚本中查询你部署的节点。
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -97,7 +96,7 @@ export const CliToolboxModal: React.FC<CliToolboxModalProps> = ({
               <div
                 key={item.id}
                 style={{
-                  background: 'rgba(10, 16, 28, 0.7)',
+                  background: 'var(--bg-panel-strong)',
                   padding: '0.875rem 1rem',
                   borderRadius: 'var(--radius-sm)',
                   border: '1px solid var(--border-subtle)',
@@ -121,10 +120,10 @@ export const CliToolboxModal: React.FC<CliToolboxModalProps> = ({
                     className="btn btn-ghost btn-icon"
                     style={{ padding: '4px' }}
                     onClick={() => copyCmd(item.cmd, item.id)}
-                    title="Copy command"
+                    title="复制命令"
                   >
                     {copiedKey === item.id ? (
-                      <Check size={14} color="#34d399" />
+                      <Check size={14} color="var(--text-emerald)" />
                     ) : (
                       <Copy size={14} />
                     )}
