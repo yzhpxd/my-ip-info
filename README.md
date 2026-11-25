@@ -4,7 +4,7 @@
 >
 > 🚀 **Website**: [https://ip.666200.xyz](https://ip.666200.xyz)
 
-[![CI](https://github.com/ii2d/my-ip-info/actions/workflows/ci.yml/badge.svg)](https://github.com/ii2d/my-ip-info/actions/workflows/ci.yml)
+[![CI](https://github.com/yzhpxd/my-ip-info/actions/workflows/ci.yml/badge.svg)](https://github.com/yzhpxd/my-ip-info/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Cloudflare Workers](https://img.shields.io/badge/Cloudflare_Workers-F38020?logo=cloudflare&logoColor=white)](https://workers.cloudflare.com)
 [![Hono](https://img.shields.io/badge/Hono-E36002?logo=hono&logoColor=white)](https://hono.dev)
@@ -27,7 +27,7 @@ Most IP lookup tools query a single remote server. **my-ip-info** cross-validate
 - ⚙️ **Custom Endpoints & Provider Toggles**: Enable or disable specific public providers, or register user-defined private backend endpoints in in-app settings.
 - ⏱️ **Latency & Network Benchmark**: Measures round-trip time (RTT) to global Anycast edge nodes.
 - 📱 **Progressive Web App (PWA)**: Installable directly from the browser on desktop and mobile with standalone window support, offline UI shell caching, and automatic refetching on network reconnect.
-- 🤖 **AI-Agent & SEO Ready**: Implements [`/llms.txt`](https://ip.ii2d.com/llms.txt) and [`/llms-full.txt`](https://ip.ii2d.com/llms-full.txt) machine-readable standards, high-resolution Open Graph / Twitter preview cards, Schema.org `WebApplication` & `FAQPage` JSON-LD structured data, XML sitemap (`/sitemap.xml`), and pre-rendered semantic HTML fallback for crawlers.
+- 🤖 **AI-Agent & SEO Ready**: Implements [`/llms.txt`](https://ip.666200.xyz/llms.txt) and [`/llms-full.txt`](https://ip.666200.xyz/llms-full.txt) machine-readable standards, high-resolution Open Graph / Twitter preview cards, Schema.org `WebApplication` & `FAQPage` JSON-LD structured data, XML sitemap (`/sitemap.xml`), and pre-rendered semantic HTML fallback for crawlers.
 
 ---
 
@@ -143,8 +143,8 @@ The frontend can be deployed independently to GitHub Pages via [.github/workflow
 
 | Variable | Description | Default |
 | :--- | :--- | :--- |
-| `VITE_BACKEND_URL` / `BACKEND_URL` | Cloudflare Worker or backend API endpoint URL | `https://my-ip-info.ii2d-dev.workers.dev` |
-| `FRONTEND_DOMAIN` / `CUSTOM_DOMAIN` | Custom domain written to `CNAME` for GitHub Pages | `ip.ii2d.com` |
+| `VITE_BACKEND_URL` / `BACKEND_URL` | Cloudflare Worker or backend API endpoint URL | `https://ip.666200.xyz` |
+| `FRONTEND_DOMAIN` / `CUSTOM_DOMAIN` | Custom domain written to `CNAME` for GitHub Pages | `ip.666200.xyz` |
 | `ENABLE_IP2LOCATION` | Enable or disable IP2Location.io provider (`'true'` / `'false'`) | `true` |
 | `VITE_BASE_PATH` | Base path for GitHub Pages if not using root custom domain | `/` |
 
@@ -164,19 +164,19 @@ pnpm undeploy # or: npx wrangler delete
 
 ## 📡 API Reference
 
-All backend API routes are versioned under `/api/v1` and served from `https://my-ip-info.ii2d-dev.workers.dev`:
+All backend API routes are versioned under `/api/v1` and served from `https://ip.666200.xyz`:
  
 | Route | Method | Content-Type | Description |
 | :--- | :---: | :--- | :--- |
-| `/` | `GET` | `text/html` or `text/plain` | Serves React SPA to browsers (`https://ip.ii2d.com`); returns raw client IP to CLI tools via Cloudflare Worker (`curl -sL https://my-ip-info.ii2d-dev.workers.dev`) |
-| `/ip` | `GET` | `text/plain; charset=utf-8` | Shorthand endpoint returning raw public IP with defensive security headers (`curl -sL https://my-ip-info.ii2d-dev.workers.dev/ip`) |
-| `https://my-ip-info.ii2d-dev.workers.dev/api/v1/info` | `GET` | `text/plain` or `application/json` or `text/yaml` | Smart content negotiation: returns plaintext for CLI or JSON for browsers. Supports explicit query override: `?format=json`, `?format=yaml`, `?format=text`, `?format=ip` |
-| `https://my-ip-info.ii2d-dev.workers.dev/api/v1/ip` | `GET` | `text/plain; charset=utf-8` | Returns raw public client IP address with a trailing newline |
-| `https://my-ip-info.ii2d-dev.workers.dev/api/v1/geo` | `GET` | `application/json` | Geolocation data (city, region, country, lat/lon, ASN, datacenter colo) |
-| `https://my-ip-info.ii2d-dev.workers.dev/api/v1/yaml` | `GET` | `text/yaml; charset=utf-8` | Client metadata and network details formatted as safe YAML |
-| `https://my-ip-info.ii2d-dev.workers.dev/api/v1/health`| `GET` | `application/json` | Health check endpoint returning status and provider identifier |
-| `https://my-ip-info.ii2d-dev.workers.dev/api/v1/indexnow`| `GET` | `application/json` | IndexNow protocol configuration, host mapping, and endpoints |
-| `https://my-ip-info.ii2d-dev.workers.dev/api/v1/indexnow`| `POST` | `application/json` | Dispatches IndexNow push notifications for changed URLs |
+| `/` | `GET` | `text/html` or `text/plain` | Serves React SPA to browsers (`https://ip.666200.xyz`); returns raw client IP to CLI tools via Cloudflare Worker (`curl -sL https://ip.666200.xyz`) |
+| `/ip` | `GET` | `text/plain; charset=utf-8` | Shorthand endpoint returning raw public IP with defensive security headers (`curl -sL https://ip.666200.xyz/ip`) |
+| `https://ip.666200.xyz/api/v1/info` | `GET` | `text/plain` or `application/json` or `text/yaml` | Smart content negotiation: returns plaintext for CLI or JSON for browsers. Supports explicit query override: `?format=json`, `?format=yaml`, `?format=text`, `?format=ip` |
+| `https://ip.666200.xyz/api/v1/ip` | `GET` | `text/plain; charset=utf-8` | Returns raw public client IP address with a trailing newline |
+| `https://ip.666200.xyz/api/v1/geo` | `GET` | `application/json` | Geolocation data (city, region, country, lat/lon, ASN, datacenter colo) |
+| `https://ip.666200.xyz/api/v1/yaml` | `GET` | `text/yaml; charset=utf-8` | Client metadata and network details formatted as safe YAML |
+| `https://ip.666200.xyz/api/v1/health`| `GET` | `application/json` | Health check endpoint returning status and provider identifier |
+| `https://ip.666200.xyz/api/v1/indexnow`| `GET` | `application/json` | IndexNow protocol configuration, host mapping, and endpoints |
+| `https://ip.666200.xyz/api/v1/indexnow`| `POST` | `application/json` | Dispatches IndexNow push notifications for changed URLs |
 | `/e860aba3b4ba1700c1f44fa0abd9376f.txt` | `GET` | `text/plain` | IndexNow site ownership key verification file |
 | `/llms.txt` | `GET` | `text/plain; charset=utf-8` | Machine-readable context summary for LLMs, search engines, and AI agents |
 | `/llms-full.txt` | `GET` | `text/plain; charset=utf-8` | Exhaustive technical specification, API schemas, and diagnostic algorithms for AI reasoning |
@@ -189,7 +189,7 @@ All backend API routes are versioned under `/api/v1` and served from `https://my
 
 [IndexNow](https://www.indexnow.org/) is an open protocol that enables website owners to immediately notify participating search engines (Microsoft Bing, Yandex, Seznam.cz, Naver) whenever pages are added, updated, or deleted.
 
-- **Verification Key**: Hosted at `https://ip.ii2d.com/e860aba3b4ba1700c1f44fa0abd9376f.txt`
+- **Verification Key**: Hosted at `https://ip.666200.xyz/e860aba3b4ba1700c1f44fa0abd9376f.txt`
 - **CLI Submission**:
   ```bash
   # Submit all URLs from public/sitemap.xml to IndexNow
