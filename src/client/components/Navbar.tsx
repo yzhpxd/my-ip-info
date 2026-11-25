@@ -53,15 +53,6 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="brand-icon">
           <Globe size={22} />
         </div>
-        <div className="brand-text">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span className="brand-title">我的 IP 信息</span>
-            <span className="brand-badge">{__APP_VERSION__}</span>
-          </div>
-          <p className="nav-subtitle" style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-            多源 IP 与网络连接智能
-          </p>
-        </div>
       </div>
 
       <div className="nav-actions">
