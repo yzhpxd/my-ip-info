@@ -7,9 +7,9 @@
   "description": "Multi-source IP intelligence and connectivity diagnostic suite",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ii2d/my-ip-info.git"
+    "url": "https://github.com/yzhpxd/my-ip-info.git"
   },
-  "homepage": "https://ip.ii2d.com",
+  "homepage": "https://ip.666200.xyz",
   "scripts": {
     "dev": "concurrently -k -n client,worker -c cyan,magenta \"pnpm dev:client\" \"pnpm dev:worker\"",
     "dev:client": "vite",
