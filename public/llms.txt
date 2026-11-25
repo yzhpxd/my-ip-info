@@ -49,4 +49,4 @@ curl -sL https://ip.666200.xyz/api/v1/geo
 - [Open Graph Card](https://ip.666200.xyz/og-image.png): Visual social preview image.
 - [XML Sitemap](https://ip.666200.xyz/sitemap.xml): Search engine indexing manifest.
 - [IndexNow Key](https://ip.666200.xyz/e860aba3b4ba1700c1f44fa0abd9376f.txt): IndexNow search engine key verification token.
-- [GitHub Repository](https://github.com/yzhpxd/my-ip-info): Source code, tests, and deployment documentation.
+- [Source Code](https://github.com/yzhpxd/my-ip-info): Source code, tests, and deployment documentation.
