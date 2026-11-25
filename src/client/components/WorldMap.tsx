@@ -4,6 +4,7 @@ import type React from 'react';
 import { useEffect, useMemo, useRef } from 'react';
 import type { GeoLocationInfo } from '../../shared/types';
 import type { ProviderResult } from '../types';
+import { zhLocation } from '../utils/geoZh';
 
 interface WorldMapProps {
   results: ProviderResult[];
@@ -55,6 +56,7 @@ export const WorldMap: React.FC<WorldMapProps> = ({ results, geo, isInitialLoadi
         lng: r.geo?.longitude ?? 0,
         city: r.geo?.city,
         country: r.geo?.country,
+        countryCode: r.geo?.countryCode,
         asn: r.geo?.asn,
       }));
   }, [results]);
@@ -124,8 +126,7 @@ export const WorldMap: React.FC<WorldMapProps> = ({ results, geo, isInitialLoadi
           iconAnchor: [7, 7],
         });
 
-        const locationText =
-          [pt.city, pt.country].filter(Boolean).join(', ') || '报告位置';
+        const locationText = zhLocation(pt.city, pt.country, pt.countryCode);
 
         const marker = L.marker(latLng, { icon });
         marker.bindPopup(`
@@ -140,7 +141,7 @@ export const WorldMap: React.FC<WorldMapProps> = ({ results, geo, isInitialLoadi
               ${escapeHtml(pt.ip)}
             </div>
             <div class="map-popup-coords" style="font-size: 10px; margin-top: 4px;">
-              Lat: ${pt.lat.toFixed(4)}, Lng: ${pt.lng.toFixed(4)}
+              纬度：${pt.lat.toFixed(4)}，经度：${pt.lng.toFixed(4)}
             </div>
           </div>
         `);
@@ -162,7 +163,7 @@ export const WorldMap: React.FC<WorldMapProps> = ({ results, geo, isInitialLoadi
     };
   }, [geoPoints]);
 
-  const locationTitle = [geo?.city, geo?.region, geo?.country].filter(Boolean).join(', ');
+  const locationTitle = zhLocation(geo?.city, geo?.country, geo?.countryCode);
 
   return (
     <div className="glass-card" style={{ padding: 'clamp(1.1rem, 3vw, 1.5rem)' }}>
