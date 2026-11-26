@@ -15,7 +15,6 @@ export default defineConfig({
         'apple-touch-icon.png',
         'pwa-192x192.png',
         'pwa-512x512.png',
-        'og-image.png',
       ],
       manifest: {
         name: 'My IP Info',
@@ -59,7 +58,14 @@ export default defineConfig({
           /^\/sitemap\.xml/,
           /^\/llms(-full)?\.txt/,
         ],
-        globPatterns: ['**/*.{js,css,html,svg,png,ico,woff,woff2,txt,xml}'],
+        // Precache only what the page actually needs: no woff (modern browsers
+        // use woff2), no og-image.png (social card, never shown in-page), and
+        // only latin-subset woff2 fonts (other subsets are never downloaded).
+        globPatterns: ['**/*.{js,css,html,svg,png,ico,woff2,txt,xml}'],
+        globIgnores: [
+          '**/og-image.png',
+          '**/*-{latin-ext,cyrillic,cyrillic-ext,greek,vietnamese}-*.woff2',
+        ],
         cleanupOutdatedCaches: true,
       },
     }),
