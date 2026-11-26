@@ -24,7 +24,7 @@ describe('Provider Resolution Tests', () => {
     assert.equal(defaultProviders.length, 1);
     assert.equal(defaultProviders[0].id, 'self-cloudflare');
     assert.equal(defaultProviders[0].category, 'self-hosted');
-    assert.equal(defaultProviders[0].endpointUrl, 'Self-Hosted Edge Worker (Same Origin)');
+    assert.equal(defaultProviders[0].endpointUrl, '自托管边缘 Worker（同源）');
 
     // Custom configured edge URL
     const customProviders = getSelfHostedProviders({
@@ -41,21 +41,18 @@ describe('Provider Resolution Tests', () => {
         name: 'Node Gateway',
         url: 'https://gateway.example.com',
         enabled: true,
-        createdAt: '2026-09-01T00:00:00Z',
       },
       {
         id: '2',
         name: 'Disabled Gateway',
         url: 'https://disabled.example.com',
         enabled: false,
-        createdAt: '2026-09-01T00:00:00Z',
       },
       {
         id: '3',
         name: '',
         url: 'https://fallback-name.example.com/custom/ip',
         enabled: true,
-        createdAt: '2026-09-01T00:00:00Z',
       },
     ];
 
@@ -67,9 +64,9 @@ describe('Provider Resolution Tests', () => {
     assert.equal(providers[0].category, 'custom');
     assert.equal(providers[0].endpointUrl, 'https://gateway.example.com');
 
-    // Defaults to 'Custom Endpoint' if name is empty
+    // Defaults to '自定义节点' if name is empty
     assert.equal(providers[1].id, 'custom-3');
-    assert.equal(providers[1].name, 'Custom Endpoint');
+    assert.equal(providers[1].name, '自定义节点');
   });
 
   it('supports AbortSignal in provider fetchIp', async () => {
@@ -119,7 +116,7 @@ describe('Provider Resolution Tests', () => {
 
       const ip2loc = providers.find((p) => p.id === 'self-ip2location');
       assert.ok(ip2loc);
-      assert.equal(ip2loc.name, 'IP2Location.io (Self-Hosted)');
+      assert.equal(ip2loc.name, 'IP2Location.io（自托管）');
 
       globalThis.fetch = async () => {
         return new Response(
