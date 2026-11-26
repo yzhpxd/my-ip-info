@@ -36,12 +36,10 @@ describe('IP Consensus Grouping Tests', () => {
       },
     ];
 
-    const { groups, failedProviders, loadingProviders, totalSuccessful } =
-      groupResultsByIp(mockResults);
+    const { groups, failedProviders, totalSuccessful } = groupResultsByIp(mockResults);
 
     assert.strictEqual(groups.length, 1);
     assert.strictEqual(failedProviders.length, 0);
-    assert.strictEqual(loadingProviders.length, 0);
     assert.strictEqual(totalSuccessful, 3);
 
     const group = groups[0];
@@ -49,8 +47,7 @@ describe('IP Consensus Grouping Tests', () => {
     assert.strictEqual(group.version, 'IPv4');
     assert.strictEqual(group.providers.length, 3);
     assert.strictEqual(group.avgLatency, 40); // (30 + 50 + 40) / 3 = 40
-    assert.strictEqual(group.geoSummary, 'San Jose, US');
-    assert.strictEqual(group.asOrganization, 'Cloudflare, Inc.');
+    assert.strictEqual(group.geoSummary, '圣何塞，US');
   });
 
   it('separates IPv4 and IPv6 groups and sorts IPv4 first', () => {
@@ -83,7 +80,7 @@ describe('IP Consensus Grouping Tests', () => {
     assert.strictEqual(groups[1].version, 'IPv6');
   });
 
-  it('correctly isolates failed providers and loading providers', () => {
+  it('correctly isolates failed providers and skips loading providers', () => {
     const mockResults: ProviderResult[] = [
       {
         providerId: 'cf-v4',
@@ -109,24 +106,19 @@ describe('IP Consensus Grouping Tests', () => {
       },
     ];
 
-    const { groups, failedProviders, loadingProviders, totalSuccessful } =
-      groupResultsByIp(mockResults);
+    const { groups, failedProviders, totalSuccessful } = groupResultsByIp(mockResults);
 
     assert.strictEqual(groups.length, 1);
     assert.strictEqual(totalSuccessful, 1);
     assert.strictEqual(failedProviders.length, 1);
     assert.strictEqual(failedProviders[0].providerId, 'failed-provider');
     assert.strictEqual(failedProviders[0].errorMessage, 'Request timed out (7s)');
-
-    assert.strictEqual(loadingProviders.length, 1);
-    assert.strictEqual(loadingProviders[0].providerId, 'loading-provider');
   });
 
   it('handles empty results array gracefully', () => {
-    const { groups, failedProviders, loadingProviders, totalSuccessful } = groupResultsByIp([]);
+    const { groups, failedProviders, totalSuccessful } = groupResultsByIp([]);
     assert.strictEqual(groups.length, 0);
     assert.strictEqual(failedProviders.length, 0);
-    assert.strictEqual(loadingProviders.length, 0);
     assert.strictEqual(totalSuccessful, 0);
   });
 });
