@@ -5,7 +5,7 @@ import type { DnsLeakResult } from '../types';
 const COOLDOWN_MS = 3000;
 const PROBE_COUNT = 10;
 
-export function useDnsLeak(clientCountry?: string) {
+export function useDnsLeak(clientCountry?: string, enabled = true) {
   const [result, setResult] = useState<DnsLeakResult>({
     status: 'idle',
     dnsServers: [],
@@ -109,8 +109,10 @@ export function useDnsLeak(clientCountry?: string) {
     }
   }, [clientCountry]);
 
-  // Initial probe with a short delay so main IP hero finishes first
+  // Only probe when the DNS section is expanded; mounting alone no longer
+  // fires 12 requests to the probe service on every page load.
   useEffect(() => {
+    if (!enabled) return;
     const timer = setTimeout(() => {
       runTest();
     }, 400);
@@ -121,7 +123,7 @@ export function useDnsLeak(clientCountry?: string) {
         abortControllerRef.current.abort();
       }
     };
-  }, [runTest]);
+  }, [runTest, enabled]);
 
   return {
     ...result,
