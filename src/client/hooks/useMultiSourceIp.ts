@@ -235,22 +235,9 @@ export function useMultiSourceIp(providers: IpProvider[]) {
     };
   }, [fetchAll]);
 
-  // Auto-refresh when user refocuses on page, switches back tab, or reconnects network
+  // Re-fetch only when the network reconnects; switching back to the tab no
+  // longer triggers a full re-query of all providers.
   useEffect(() => {
-    const handleRefocus = () => {
-      // Ignore if document is not visible
-      if (typeof document !== 'undefined' && document.visibilityState !== 'visible') {
-        return;
-      }
-
-      // Skip if fetched recently within cooldown window
-      if (Date.now() - lastFetchTimeRef.current < REFOCUS_COOLDOWN_MS) {
-        return;
-      }
-
-      fetchAll(false);
-    };
-
     const handleOnline = () => {
       if (Date.now() - lastFetchTimeRef.current < REFOCUS_COOLDOWN_MS) {
         return;
@@ -258,13 +245,9 @@ export function useMultiSourceIp(providers: IpProvider[]) {
       fetchAll(true);
     };
 
-    window.addEventListener('focus', handleRefocus);
-    document.addEventListener('visibilitychange', handleRefocus);
     window.addEventListener('online', handleOnline);
 
     return () => {
-      window.removeEventListener('focus', handleRefocus);
-      document.removeEventListener('visibilitychange', handleRefocus);
       window.removeEventListener('online', handleOnline);
     };
   }, [fetchAll]);
@@ -293,10 +276,8 @@ export function useMultiSourceIp(providers: IpProvider[]) {
   const manualRefresh = useCallback(() => fetchAll(true), [fetchAll]);
 
   return {
-    results,
     resultsList,
     failedResults,
-    failedCount,
     isAllFailed,
     isInitialLoading,
     isRefreshing,
