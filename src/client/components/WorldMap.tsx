@@ -1,9 +1,11 @@
 import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import { MapPin, Navigation, Wifi } from 'lucide-react';
 import type React from 'react';
 import { useEffect, useMemo, useRef } from 'react';
 import type { GeoLocationInfo } from '../../shared/types';
 import type { ProviderResult } from '../types';
+import { getCountryFlag } from '../utils/countryFlag';
 import { zhLocation } from '../utils/geoZh';
 
 interface WorldMapProps {
@@ -26,16 +28,6 @@ export const WorldMap: React.FC<WorldMapProps> = ({ results, geo, isInitialLoadi
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
   const markersLayerRef = useRef<L.LayerGroup | null>(null);
-
-  // Convert country code to emoji flag (e.g. "US" -> 🇺🇸)
-  const getCountryFlag = (code?: string) => {
-    if (code?.length !== 2) return '🌐';
-    const codePoints = code
-      .toUpperCase()
-      .split('')
-      .map((char) => 127397 + char.charCodeAt(0));
-    return String.fromCodePoint(...codePoints);
-  };
 
   // Extract all points with valid coordinates
   const geoPoints = useMemo(() => {
