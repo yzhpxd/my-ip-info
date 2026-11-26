@@ -15,7 +15,7 @@ export function formatPlaintext(response: IpInfoResponse): string {
   return `${response.ip}\n`;
 }
 
-export function escapeYamlString(val: string): string {
+function escapeYamlString(val: string): string {
   return JSON.stringify(val);
 }
 
