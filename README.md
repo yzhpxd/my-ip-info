@@ -161,31 +161,10 @@ pnpm undeploy # or: npx wrangler delete
 | `https://ip.666200.xyz/api/v1/geo` | `GET` | `application/json` | 地理位置数据（城市、地区、国家、经纬度、ASN、数据中心 colo） |
 | `https://ip.666200.xyz/api/v1/yaml` | `GET` | `text/yaml; charset=utf-8` | 以安全的 YAML 格式呈现客户端元数据与网络详情 |
 | `https://ip.666200.xyz/api/v1/health`| `GET` | `application/json` | 健康检查端点，返回状态与服务商标识 |
-| `https://ip.666200.xyz/api/v1/indexnow`| `GET` | `application/json` | IndexNow 协议配置、主机映射与端点 |
-| `https://ip.666200.xyz/api/v1/indexnow`| `POST` | `application/json` | 为变更的 URL 发送 IndexNow 推送通知 |
-| `/e860aba3b4ba1700c1f44fa0abd9376f.txt` | `GET` | `text/plain` | IndexNow 网站所有权密钥验证文件 |
 | `/llms.txt` | `GET` | `text/plain; charset=utf-8` | 面向大语言模型、搜索引擎与 AI 智能体的机器可读上下文摘要 |
 | `/llms-full.txt` | `GET` | `text/plain; charset=utf-8` | 详尽的技术规范、API 结构与诊断算法，供 AI 推理使用 |
 | `/sitemap.xml` | `GET` | `application/xml` | 面向搜索引擎爬虫的 XML 站点地图 |
 | `/robots.txt` | `GET` | `text/plain` | 爬虫与 AI 机器人的访问策略 |
-
----
-
-## ⚡ IndexNow 支持
-
-[IndexNow](https://www.indexnow.org/) 是一项开放协议，网站所有者可以在页面新增、更新或删除时，立即通知参与的搜索引擎（Microsoft Bing、Yandex、Seznam.cz、Naver）。
-
-- **验证密钥**：托管于 `https://ip.666200.xyz/e860aba3b4ba1700c1f44fa0abd9376f.txt`
-- **命令行提交**：
-  ```bash
-  # Submit all URLs from public/sitemap.xml to IndexNow
-  pnpm run indexnow
-
-  # Test submission payload locally without sending network requests
-  pnpm run indexnow:dry-run
-  ```
-- **自动部署**：每次生产部署时，都会自动运行 IndexNow 通知。
-- **API 端点**：`GET /api/v1/indexnow` 查看当前协议元数据，`POST /api/v1/indexnow` 接受自定义批量 URL 提交。
 
 ---
 
