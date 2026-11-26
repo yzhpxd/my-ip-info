@@ -208,7 +208,7 @@ const CITY_ZH: Record<string, string> = {
   'tel aviv': '特拉维夫',
 };
 
-export function zhCountry(country?: string, countryCode?: string): string | undefined {
+function zhCountry(country?: string, countryCode?: string): string | undefined {
   if (countryCode) {
     const hit = COUNTRY_BY_CODE[countryCode.toUpperCase()];
     if (hit) return hit;
@@ -221,7 +221,7 @@ export function zhCountry(country?: string, countryCode?: string): string | unde
   return undefined;
 }
 
-export function zhCity(city?: string): string | undefined {
+function zhCity(city?: string): string | undefined {
   if (!city) return undefined;
   const key = city.trim().toLowerCase().replace(/\s+city$/, '');
   return CITY_ZH[key] ?? city;
