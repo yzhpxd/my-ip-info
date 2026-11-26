@@ -2,6 +2,7 @@ import { Check, Clock, Copy, Download, History, Shield, Trash2, X } from 'lucide
 import type React from 'react';
 import { useState } from 'react';
 import type { IpHistoryEntry } from '../types';
+import { getCountryFlag } from '../utils/countryFlag';
 
 interface HistoryModalProps {
   isOpen: boolean;
@@ -32,14 +33,15 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
   const handleRecordSnapshot = () => {
     if (!onRecordCurrentSnapshot) return;
     const res = onRecordCurrentSnapshot() as { recorded: boolean; reason: string } | undefined;
-    if (res?.recorded) {
+    if (!res) return;
+    if (res.recorded) {
       setSnapshotFeedback('快照已保存！');
-    } else if (res?.reason === 'unchanged') {
+    } else if (res.reason === 'unchanged') {
       setSnapshotFeedback('已是最新');
-    } else if (res?.reason === 'no-ip') {
+    } else if (res.reason === 'no-ip') {
       setSnapshotFeedback('IP 未就绪');
-    } else {
-      setSnapshotFeedback('快照已保存！');
+    } else if (res.reason === 'disabled') {
+      setSnapshotFeedback('历史未启用');
     }
     setTimeout(() => setSnapshotFeedback(null), 2500);
   };
@@ -48,15 +50,6 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
     navigator.clipboard.writeText(text);
     setCopiedKey(key);
     setTimeout(() => setCopiedKey(null), 2000);
-  };
-
-  const getCountryFlag = (code?: string) => {
-    if (code?.length !== 2) return '🌐';
-    const codePoints = code
-      .toUpperCase()
-      .split('')
-      .map((char) => 127397 + char.charCodeAt(0));
-    return String.fromCodePoint(...codePoints);
   };
 
   const formatDate = (isoString: string) => {
@@ -569,7 +562,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                             marginTop: '2px',
                           }}
                         >
-                          <span>{getCountryFlag(entry.country)}</span>
+                          <span>{getCountryFlag(entry.countryCode)}</span>
                           <span>{[entry.city, entry.country].filter(Boolean).join(', ')}</span>
                           {entry.org && <span>• {entry.org}</span>}
                         </div>
