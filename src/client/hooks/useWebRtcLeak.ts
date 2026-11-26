@@ -9,8 +9,6 @@ export function useWebRtcLeak() {
     status: 'probing',
     localIps: [],
     publicIps: [],
-    hasLeak: false,
-    candidates: [],
   });
 
   const lastProbeTimeRef = useRef<number>(0);
@@ -24,8 +22,6 @@ export function useWebRtcLeak() {
         status: 'unsupported',
         localIps: [],
         publicIps: [],
-        hasLeak: false,
-        candidates: [],
       });
       return;
     }
@@ -50,7 +46,6 @@ export function useWebRtcLeak() {
 
     const localIpsSet = new Set<string>();
     const publicIpsSet = new Set<string>();
-    const candidatesList: WebRtcLeakResult['candidates'] = [];
 
     const pc = new RTCPeerConnection({
       iceServers: [
@@ -69,8 +64,6 @@ export function useWebRtcLeak() {
         status: 'completed',
         localIps: Array.from(localIpsSet),
         publicIps: Array.from(publicIpsSet),
-        hasLeak: publicIpsSet.size > 0 || localIpsSet.size > 0,
-        candidates: candidatesList,
       });
     };
 
@@ -85,8 +78,6 @@ export function useWebRtcLeak() {
       const parts = candidateStr.split(' ');
       if (parts.length > 4) {
         const ip = parts[4];
-        const type = parts[7] || 'unknown'; // 'host' (LAN), 'srflx' (STUN WAN), 'relay' (TURN)
-        const protocol = parts[2] || 'udp';
 
         // Check if IP is valid and not mDNS obfuscated (e.g. .local)
         const version = getIpVersion(ip);
@@ -96,8 +87,6 @@ export function useWebRtcLeak() {
           } else {
             publicIpsSet.add(ip);
           }
-
-          candidatesList.push({ ip, type, protocol });
         }
       }
     };
@@ -137,9 +126,10 @@ export function useWebRtcLeak() {
     };
   }, [probe]);
 
-  // Auto-reprobe on page refocus, visibility change, or network reconnect
+  // Re-probe only when the network reconnects; switching back to the tab no
+  // longer triggers a fresh STUN probe.
   useEffect(() => {
-    const handleRefocus = () => {
+    const handleOnline = () => {
       if (typeof document !== 'undefined' && document.visibilityState !== 'visible') {
         return;
       }
@@ -152,14 +142,10 @@ export function useWebRtcLeak() {
       probe();
     };
 
-    window.addEventListener('focus', handleRefocus);
-    document.addEventListener('visibilitychange', handleRefocus);
-    window.addEventListener('online', handleRefocus);
+    window.addEventListener('online', handleOnline);
 
     return () => {
-      window.removeEventListener('focus', handleRefocus);
-      document.removeEventListener('visibilitychange', handleRefocus);
-      window.removeEventListener('online', handleRefocus);
+      window.removeEventListener('online', handleOnline);
     };
   }, [probe]);
 
