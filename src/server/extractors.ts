@@ -1,14 +1,6 @@
 import { cleanIpAddress } from '../shared/ip';
 import type { CloudflareCfData, GeoLocationInfo } from '../shared/types';
 
-export interface ExtractedClientData {
-  clientIp: string;
-  geo?: GeoLocationInfo;
-  protocol?: string;
-  tlsVersion?: string;
-  tlsCipher?: string;
-}
-
 /**
  * Extracts the real client IP by inspecting standard multi-cloud proxy headers.
  */
