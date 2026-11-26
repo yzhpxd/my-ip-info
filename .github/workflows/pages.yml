@@ -74,9 +74,3 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v5
 
-      - name: Notify Search Engines via IndexNow
-        continue-on-error: true
-        env:
-          INDEXNOW_HOST: ${{ inputs.frontend_domain || vars.FRONTEND_DOMAIN || vars.CUSTOM_DOMAIN || 'ip.666200.xyz' }}
-        run: |
-          pnpm run indexnow --continue-on-error
