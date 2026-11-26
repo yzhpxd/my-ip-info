@@ -1,5 +1,5 @@
 import type React from 'react';
-import { useEffect, useMemo, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { ComparisonMatrix } from './components/ComparisonMatrix';
 import { DnsLeakCard } from './components/DnsLeakCard';
 import { ErrorBanner } from './components/ErrorBanner';
@@ -9,13 +9,17 @@ import { Navbar } from './components/Navbar';
 import { PrivacyModal } from './components/PrivacyModal';
 import { SettingsModal } from './components/SettingsModal';
 import { WebRtcLeakCard } from './components/WebRtcLeakCard';
-import { WorldMap } from './components/WorldMap';
 import { useDnsLeak } from './hooks/useDnsLeak';
 import { useIpHistory } from './hooks/useIpHistory';
 import { useMultiSourceIp } from './hooks/useMultiSourceIp';
 import { useWebRtcLeak } from './hooks/useWebRtcLeak';
 import { getCustomEndpointProviders, getSelfHostedProviders, PUBLIC_PROVIDERS } from './providers';
 import type { CustomEndpoint } from './types';
+
+// WorldMap (Leaflet) is lazy-loaded so its ~140 KB stays out of the initial bundle.
+const WorldMap = lazy(() =>
+  import('./components/WorldMap').then((m) => ({ default: m.WorldMap }))
+);
 
 interface ExpandedSections {
   matrix: boolean;
@@ -104,11 +108,6 @@ export const App: React.FC = () => {
     try {
       const saved = localStorage.getItem(STORAGE_EXPANDED_SECTIONS);
       if (saved) return { ...defaults, ...JSON.parse(saved) };
-      const oldDetails = localStorage.getItem('my-ip-info:details-expanded');
-      if (oldDetails !== null) {
-        const val = JSON.parse(oldDetails);
-        return { matrix: val, webrtc: val, dns: val };
-      }
       return defaults;
     } catch {
       return defaults;
@@ -173,7 +172,7 @@ export const App: React.FC = () => {
   } = useMultiSourceIp(activeProviders);
 
   const leakResult = useWebRtcLeak();
-  const dnsLeakResult = useDnsLeak(primaryGeo?.country);
+  const dnsLeakResult = useDnsLeak(primaryGeo?.country, expandedSections.dns);
 
   const stunWanIp = leakResult.publicIps[0];
   const isWebRtcLeaked = Boolean(primaryIpv4 && stunWanIp && primaryIpv4 !== stunWanIp);
@@ -275,7 +274,15 @@ export const App: React.FC = () => {
       />
 
       {/* Interactive Geolocation Convergence Map (with Location & ISP info) */}
-      <WorldMap results={resultsList} geo={primaryGeo} isInitialLoading={isInitialLoading} />
+      <Suspense
+        fallback={
+          <div className="glass-card" style={{ padding: 'clamp(1.1rem, 3vw, 1.5rem)' }}>
+            正在加载地图…
+          </div>
+        }
+      >
+        <WorldMap results={resultsList} geo={primaryGeo} isInitialLoading={isInitialLoading} />
+      </Suspense>
 
       {/* 3 Independent Collapsible Diagnostics Accordions */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
@@ -376,7 +383,7 @@ export const App: React.FC = () => {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <span>由 Cloudflare Workers 与 Cloudflare Pages 提供支持</span>
+          <span>由 Cloudflare Workers 提供支持</span>
         </div>
 
       </footer>
