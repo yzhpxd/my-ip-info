@@ -1,6 +1,5 @@
 import type React from 'react';
 import { useEffect, useMemo, useState } from 'react';
-import { CliToolboxModal } from './components/CliToolboxModal';
 import { ComparisonMatrix } from './components/ComparisonMatrix';
 import { DnsLeakCard } from './components/DnsLeakCard';
 import { ErrorBanner } from './components/ErrorBanner';
@@ -76,7 +75,6 @@ export const App: React.FC = () => {
   });
 
   // Modal states
-  const [isCliModalOpen, setIsCliModalOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
@@ -240,7 +238,6 @@ export const App: React.FC = () => {
       <Navbar
         isRefreshing={isRefreshing}
         onRefresh={handleRefreshAll}
-        onOpenCliModal={() => setIsCliModalOpen(true)}
         onOpenSettingsModal={() => setIsSettingsModalOpen(true)}
         onOpenHistoryModal={() => setIsHistoryModalOpen(true)}
         onOpenPrivacyModal={() => setIsPrivacyModalOpen(true)}
@@ -338,12 +335,6 @@ export const App: React.FC = () => {
       </div>
 
       {/* Modals */}
-      <CliToolboxModal
-        isOpen={isCliModalOpen}
-        onClose={() => setIsCliModalOpen(false)}
-        cloudflareUrl={cloudConfig.cloudflareUrl}
-      />
-
       <SettingsModal
         isOpen={isSettingsModalOpen}
         onClose={() => setIsSettingsModalOpen(false)}
