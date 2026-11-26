@@ -1,5 +1,6 @@
 import type { IpVersion } from '../../shared/types';
 import type { ProviderResult } from '../types';
+import { zhLocation } from './geoZh';
 
 export interface IpConsensusGroup {
   ip: string;
@@ -7,25 +8,21 @@ export interface IpConsensusGroup {
   providers: ProviderResult[];
   avgLatency: number;
   geoSummary?: string;
-  asOrganization?: string;
 }
 
 export interface GroupedResults {
   groups: IpConsensusGroup[];
   failedProviders: ProviderResult[];
-  loadingProviders: ProviderResult[];
   totalSuccessful: number;
 }
 
 export function groupResultsByIp(results: ProviderResult[]): GroupedResults {
   const ipMap = new Map<string, ProviderResult[]>();
   const failed: ProviderResult[] = [];
-  const loading: ProviderResult[] = [];
 
   for (const r of results) {
-    if (r.status === 'loading') {
-      loading.push(r);
-    } else if (r.status === 'error' || !r.ip) {
+    if (r.status === 'loading') continue;
+    if (r.status === 'error' || !r.ip) {
       failed.push(r);
     } else {
       const existing = ipMap.get(r.ip) || [];
@@ -42,11 +39,8 @@ export function groupResultsByIp(results: ProviderResult[]): GroupedResults {
     const version = provs.find((p) => p.version)?.version;
     const geoProvider = provs.find((p) => p.geo?.city || p.geo?.country);
     const geoSummary = geoProvider?.geo
-      ? [geoProvider.geo.city, geoProvider.geo.region, geoProvider.geo.country]
-          .filter(Boolean)
-          .join(', ')
+      ? zhLocation(geoProvider.geo.city, geoProvider.geo.country, geoProvider.geo.countryCode)
       : undefined;
-    const asOrganization = geoProvider?.geo?.asOrganization;
 
     return {
       ip,
@@ -54,7 +48,6 @@ export function groupResultsByIp(results: ProviderResult[]): GroupedResults {
       providers: provs,
       avgLatency,
       geoSummary,
-      asOrganization,
     };
   });
 
@@ -71,7 +64,6 @@ export function groupResultsByIp(results: ProviderResult[]): GroupedResults {
   return {
     groups,
     failedProviders: failed,
-    loadingProviders: loading,
     totalSuccessful,
   };
 }
