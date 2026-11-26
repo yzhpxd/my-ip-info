@@ -1,4 +1,4 @@
-name = "my-ip-info"
+name = "my-ip"
 main = "src/server/index.ts"
 compatibility_date = "2026-05-01"
 compatibility_flags = ["nodejs_compat"]
