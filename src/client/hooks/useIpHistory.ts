@@ -82,7 +82,8 @@ export function useIpHistory() {
         latest &&
         latest.ipv4 === normalizedIpv4 &&
         latest.ipv6 === normalizedIpv6 &&
-        latest.country === geo?.country
+        latest.country === geo?.country &&
+        latest.countryCode === geo?.countryCode
       ) {
         return { recorded: false, reason: 'unchanged' };
       }
@@ -93,6 +94,7 @@ export function useIpHistory() {
         ipv4: normalizedIpv4,
         ipv6: normalizedIpv6,
         country: geo?.country,
+        countryCode: geo?.countryCode,
         city: geo?.city,
         org: geo?.asOrganization,
       };
