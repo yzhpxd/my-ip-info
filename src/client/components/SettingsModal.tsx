@@ -29,7 +29,6 @@ interface SettingsModalProps {
   disabledProviderIds: string[];
   onToggleProvider: (id: string) => void;
   onEnableAllProviders?: () => void;
-  initialTab?: 'providers' | 'custom' | 'backend';
 }
 
 export const SettingsModal: React.FC<SettingsModalProps> = ({
@@ -43,9 +42,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   disabledProviderIds = [],
   onToggleProvider,
   onEnableAllProviders,
-  initialTab = 'providers',
 }) => {
-  const [activeTab, setActiveTab] = useState<'providers' | 'custom' | 'backend'>(initialTab);
+  const [activeTab, setActiveTab] = useState<'providers' | 'custom' | 'backend'>('providers');
   const [cloudflareUrl, setCloudflareUrl] = useState(config.cloudflareUrl);
 
   // Custom Endpoint Form State
@@ -56,14 +54,14 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 
   useEffect(() => {
     if (isOpen) {
-      setActiveTab(initialTab);
+      setActiveTab('providers');
       setCloudflareUrl(config.cloudflareUrl);
       setName('');
       setUrl('');
       setTestStatus('idle');
       setTestMessage(null);
     }
-  }, [isOpen, initialTab, config.cloudflareUrl]);
+  }, [isOpen, config.cloudflareUrl]);
 
   if (!isOpen) return null;
 
@@ -160,7 +158,6 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
       name: endpointName,
       url: trimmedUrl,
       enabled: true,
-      createdAt: new Date().toISOString(),
     };
 
     const updated = [...endpoints, newEndpoint];
