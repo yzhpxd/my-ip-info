@@ -1,6 +1,6 @@
 import type { GeoLocationInfo, IpVersion } from '../shared/types';
 
-export type ProviderCategory = 'self-hosted' | 'public' | 'webrtc' | 'custom';
+export type ProviderCategory = 'self-hosted' | 'public' | 'custom';
 
 export interface ProviderResult {
   providerId: string;
@@ -36,12 +36,6 @@ export interface WebRtcLeakResult {
   status: 'probing' | 'completed' | 'unsupported';
   localIps: string[];
   publicIps: string[];
-  hasLeak: boolean; // True if public IP via STUN is revealed or unexpected
-  candidates: {
-    ip: string;
-    type: string;
-    protocol: string;
-  }[];
 }
 
 export interface DnsServerInfo {
@@ -69,7 +63,6 @@ export interface CustomEndpoint {
   name: string;
   url: string;
   enabled: boolean;
-  createdAt: string;
 }
 
 export interface IpHistoryEntry {
@@ -78,6 +71,7 @@ export interface IpHistoryEntry {
   ipv4?: string;
   ipv6?: string;
   country?: string;
+  countryCode?: string;
   city?: string;
   org?: string;
 }
