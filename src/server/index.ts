@@ -1,4 +1,3 @@
-import { DEFAULT_INDEXNOW_KEY } from '../shared/indexnow';
 import { createIpApp } from './app';
 import { extractClientIp } from './extractors';
 import { isCliRequest } from './formatters';
@@ -8,8 +7,6 @@ export interface Env {
     fetch: (request: Request) => Promise<Response>;
   };
   IP2_LOCATION_API_KEY?: string;
-  INDEXNOW_KEY?: string;
-  INDEXNOW_HOST?: string;
 }
 
 const app = createIpApp({
@@ -50,21 +47,6 @@ export default {
           Pragma: 'no-cache',
           'X-Content-Type-Options': 'nosniff',
           'X-Frame-Options': 'DENY',
-        },
-      });
-    }
-
-    // IndexNow key verification file (direct fallback if ASSETS binding is unavailable)
-    const indexNowKey = env.INDEXNOW_KEY || DEFAULT_INDEXNOW_KEY;
-    if (url.pathname === `/${indexNowKey}.txt`) {
-      if (env.ASSETS) {
-        return env.ASSETS.fetch(request);
-      }
-      return new Response(`${indexNowKey}\n`, {
-        headers: {
-          'Content-Type': 'text/plain; charset=utf-8',
-          'Cache-Control': 'public, max-age=86400',
-          'X-Content-Type-Options': 'nosniff',
         },
       });
     }
