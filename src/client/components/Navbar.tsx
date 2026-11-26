@@ -5,7 +5,6 @@ import {
   RefreshCw,
   Settings,
   Shield,
-  Terminal,
   X,
 } from 'lucide-react';
 import type React from 'react';
@@ -14,7 +13,6 @@ import { useEffect, useState } from 'react';
 interface NavbarProps {
   isRefreshing: boolean;
   onRefresh: () => void;
-  onOpenCliModal: () => void;
   onOpenSettingsModal: () => void;
   onOpenHistoryModal: () => void;
   onOpenPrivacyModal?: () => void;
@@ -25,7 +23,6 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({
   isRefreshing,
   onRefresh,
-  onOpenCliModal,
   onOpenSettingsModal,
   onOpenHistoryModal,
   onOpenPrivacyModal,
@@ -53,21 +50,19 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="brand-icon">
           <Globe size={22} />
         </div>
+        <div className="brand-text">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span className="brand-title">IP 信息</span>
+          </div>
+          <p className="nav-subtitle" style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+            多源 IP 与网络连接智能
+          </p>
+        </div>
       </div>
 
       <div className="nav-actions">
         {/* Desktop actions: directly visible on wider screens */}
         <div className="nav-desktop-actions">
-          <button
-            className="btn btn-ghost"
-            onClick={onOpenCliModal}
-            title="CLI / cURL 命令"
-            type="button"
-          >
-            <Terminal size={16} />
-            <span className="nav-btn-text">cURL / CLI</span>
-          </button>
-
           <button
             className="btn btn-ghost"
             onClick={onOpenSettingsModal}
@@ -142,19 +137,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                 aria-hidden="true"
               />
               <div className="nav-dropdown-menu" role="menu">
-                <button
-                  type="button"
-                  className="nav-dropdown-item"
-                  role="menuitem"
-                  onClick={() => {
-                    setIsMenuOpen(false);
-                    onOpenCliModal();
-                  }}
-                >
-                  <Terminal size={16} />
-                  <span>cURL / CLI 工具箱</span>
-                </button>
-
                 <button
                   type="button"
                   className="nav-dropdown-item"
